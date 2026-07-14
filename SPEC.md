@@ -320,10 +320,11 @@ of depending on one:
   `exp`, `iat`, `sub`, then `traits` when present. Empty or absent traits →
   the `traits` key is omitted entirely.
 - JSON: compact separators (no whitespace); UTF-8 preserved (no `\uXXXX`
-  escaping of non-ASCII); the three HTML-unsafe ASCII characters `&`, `<`,
-  `>` escaped as `\u0026`, `\u003c`, `\u003e` (this matches Go's
-  `encoding/json`, which the platform's reference generator uses); integers
-  without decimal point or exponent.
+  escaping of non-ASCII) with exactly five exceptions, matching Go's
+  `encoding/json` (the platform's reference generator): the HTML-unsafe
+  ASCII characters `&`, `<`, `>` escaped as `\u0026`, `\u003c`, `\u003e`,
+  and the JavaScript line separators U+2028, U+2029 escaped as `\u2028`,
+  `\u2029`; integers without decimal point or exponent.
 - base64url (RFC 4648 §5) **without padding** for all three segments.
 - Signature: `HMAC-SHA256(header_b64 + "." + payload_b64, utf8(secret))`.
 

@@ -2,7 +2,7 @@
   "canonical_form": {
     "base64": "base64url (RFC 4648 §5) without padding for header, payload and signature",
     "header": "{\"alg\":\"HS256\",\"kid\":\"\u003ckid\u003e\",\"typ\":\"JWT\"} — keys in this exact order (lexicographic)",
-    "json": "compact separators (no spaces); UTF-8 kept as-is (no \\u escaping of non-ASCII); the three HTML-unsafe ASCII chars \u0026, \u003c, \u003e escaped as \\u0026, \\u003c, \\u003e; integers rendered without decimal point",
+    "json": "compact separators (no spaces); UTF-8 kept as-is (no \\u escaping of non-ASCII); the three HTML-unsafe ASCII chars \u0026, \u003c, \u003e escaped as \\u0026, \\u003c, \\u003e; the JS line separators U+2028 and U+2029 escaped as \\u2028, \\u2029; integers rendered without decimal point",
     "payload": "claims object with keys sorted lexicographically at every nesting level: exp, iat, sub[, traits]; traits omitted when absent or empty",
     "signature": "HMAC-SHA256 over ASCII(base64url(header) + \".\" + base64url(payload)) keyed with the raw UTF-8 bytes of the secret",
     "verifier": "kilden enricher: HS256 only, exp required, kid looked up among the project's active identity secrets, sub must equal the event's distinct_id byte-for-byte"
@@ -13,30 +13,30 @@
       "secret": "spec-test-secret-1",
       "kid": "k1",
       "sub": "user_42",
-      "iat": 1730000000,
-      "exp": 1730003600,
-      "token": "eyJhbGciOiJIUzI1NiIsImtpZCI6ImsxIiwidHlwIjoiSldUIn0.eyJleHAiOjE3MzAwMDM2MDAsImlhdCI6MTczMDAwMDAwMCwic3ViIjoidXNlcl80MiJ9.boPBLkcvDs7ew-RR3VFwz4NuJQrirJ5Jl-2zExyy2K8"
+      "iat": 1893456000,
+      "exp": 1893459600,
+      "token": "eyJhbGciOiJIUzI1NiIsImtpZCI6ImsxIiwidHlwIjoiSldUIn0.eyJleHAiOjE4OTM0NTk2MDAsImlhdCI6MTg5MzQ1NjAwMCwic3ViIjoidXNlcl80MiJ9.A8UCJ3eqIRniG9fm94HGFLe9tzc4pbGZqpGO2iWOF6g"
     },
     {
       "name": "simple_traits",
       "secret": "spec-test-secret-1",
       "kid": "k1",
       "sub": "user_42",
-      "iat": 1730000000,
-      "exp": 1730003600,
+      "iat": 1893456000,
+      "exp": 1893459600,
       "traits": {
         "email": "user@example.com",
         "plan": "pro"
       },
-      "token": "eyJhbGciOiJIUzI1NiIsImtpZCI6ImsxIiwidHlwIjoiSldUIn0.eyJleHAiOjE3MzAwMDM2MDAsImlhdCI6MTczMDAwMDAwMCwic3ViIjoidXNlcl80MiIsInRyYWl0cyI6eyJlbWFpbCI6InVzZXJAZXhhbXBsZS5jb20iLCJwbGFuIjoicHJvIn19.pR-V_hokRr7VO24Cv3wWx8soMzFSlDT4G-gxmZY3BUc"
+      "token": "eyJhbGciOiJIUzI1NiIsImtpZCI6ImsxIiwidHlwIjoiSldUIn0.eyJleHAiOjE4OTM0NTk2MDAsImlhdCI6MTg5MzQ1NjAwMCwic3ViIjoidXNlcl80MiIsInRyYWl0cyI6eyJlbWFpbCI6InVzZXJAZXhhbXBsZS5jb20iLCJwbGFuIjoicHJvIn19.PFgdBmYlu-_VZQTFGkPF1pEzt8ayzLjIAEdONn-47wQ"
     },
     {
       "name": "nested_traits",
       "secret": "spec-test-secret-1",
       "kid": "k1",
       "sub": "user_42",
-      "iat": 1730000000,
-      "exp": 1730003600,
+      "iat": 1893456000,
+      "exp": 1893459600,
       "traits": {
         "address": {
           "city": "Santiago",
@@ -44,121 +44,134 @@
         },
         "plan": "pro"
       },
-      "token": "eyJhbGciOiJIUzI1NiIsImtpZCI6ImsxIiwidHlwIjoiSldUIn0.eyJleHAiOjE3MzAwMDM2MDAsImlhdCI6MTczMDAwMDAwMCwic3ViIjoidXNlcl80MiIsInRyYWl0cyI6eyJhZGRyZXNzIjp7ImNpdHkiOiJTYW50aWFnbyIsImNvdW50cnkiOiJDTCJ9LCJwbGFuIjoicHJvIn19.S0Hoqm0OrNqDScdym-0zrzxEkAX62Wb7RVc7ke7tIrI"
+      "token": "eyJhbGciOiJIUzI1NiIsImtpZCI6ImsxIiwidHlwIjoiSldUIn0.eyJleHAiOjE4OTM0NTk2MDAsImlhdCI6MTg5MzQ1NjAwMCwic3ViIjoidXNlcl80MiIsInRyYWl0cyI6eyJhZGRyZXNzIjp7ImNpdHkiOiJTYW50aWFnbyIsImNvdW50cnkiOiJDTCJ9LCJwbGFuIjoicHJvIn19.Zdc1xXf6zBPQaubqSuFeGXny3nJwm2O1_YwsdkszZaM"
     },
     {
       "name": "unicode_traits",
       "secret": "spec-test-secret-1",
       "kid": "k1",
       "sub": "usuario_ñandú",
-      "iat": 1730000000,
-      "exp": 1730003600,
+      "iat": 1893456000,
+      "exp": 1893459600,
       "traits": {
         "city": "München",
         "emoji": "🦄",
         "lang": "日本語",
         "name": "José Piñera"
       },
-      "token": "eyJhbGciOiJIUzI1NiIsImtpZCI6ImsxIiwidHlwIjoiSldUIn0.eyJleHAiOjE3MzAwMDM2MDAsImlhdCI6MTczMDAwMDAwMCwic3ViIjoidXN1YXJpb1_DsWFuZMO6IiwidHJhaXRzIjp7ImNpdHkiOiJNw7xuY2hlbiIsImVtb2ppIjoi8J-mhCIsImxhbmciOiLml6XmnKzoqp4iLCJuYW1lIjoiSm9zw6kgUGnDsWVyYSJ9fQ.zzhJNTdfaECvGsh3zKe8uZCLBV8h4Rb6c7pOfcF42bM"
+      "token": "eyJhbGciOiJIUzI1NiIsImtpZCI6ImsxIiwidHlwIjoiSldUIn0.eyJleHAiOjE4OTM0NTk2MDAsImlhdCI6MTg5MzQ1NjAwMCwic3ViIjoidXN1YXJpb1_DsWFuZMO6IiwidHJhaXRzIjp7ImNpdHkiOiJNw7xuY2hlbiIsImVtb2ppIjoi8J-mhCIsImxhbmciOiLml6XmnKzoqp4iLCJuYW1lIjoiSm9zw6kgUGnDsWVyYSJ9fQ.DX4GHsmr8Jv7w1ViwTNsg8PFACBuMNrFt5Xk4e_OAmA"
     },
     {
       "name": "numeric_traits",
       "secret": "spec-test-secret-1",
       "kid": "k1",
       "sub": "user_42",
-      "iat": 1730000000,
-      "exp": 1730003600,
+      "iat": 1893456000,
+      "exp": 1893459600,
       "traits": {
         "age": 35,
         "count": 0,
         "ratio": 0.5,
         "score": 99.9
       },
-      "token": "eyJhbGciOiJIUzI1NiIsImtpZCI6ImsxIiwidHlwIjoiSldUIn0.eyJleHAiOjE3MzAwMDM2MDAsImlhdCI6MTczMDAwMDAwMCwic3ViIjoidXNlcl80MiIsInRyYWl0cyI6eyJhZ2UiOjM1LCJjb3VudCI6MCwicmF0aW8iOjAuNSwic2NvcmUiOjk5Ljl9fQ.TmGLs3hEbEkO6q55iEB4o3PNoWhVWTQZsVh1V0nkoLg"
+      "token": "eyJhbGciOiJIUzI1NiIsImtpZCI6ImsxIiwidHlwIjoiSldUIn0.eyJleHAiOjE4OTM0NTk2MDAsImlhdCI6MTg5MzQ1NjAwMCwic3ViIjoidXNlcl80MiIsInRyYWl0cyI6eyJhZ2UiOjM1LCJjb3VudCI6MCwicmF0aW8iOjAuNSwic2NvcmUiOjk5Ljl9fQ.Jio-YHCG8pxWhL1AEfGu0uUpPE67Cp91DuQgVzFQTCY"
     },
     {
       "name": "bool_null_traits",
       "secret": "spec-test-secret-1",
       "kid": "k1",
       "sub": "user_42",
-      "iat": 1730000000,
-      "exp": 1730003600,
+      "iat": 1893456000,
+      "exp": 1893459600,
       "traits": {
         "active": true,
         "beta": false,
         "deleted_at": null
       },
-      "token": "eyJhbGciOiJIUzI1NiIsImtpZCI6ImsxIiwidHlwIjoiSldUIn0.eyJleHAiOjE3MzAwMDM2MDAsImlhdCI6MTczMDAwMDAwMCwic3ViIjoidXNlcl80MiIsInRyYWl0cyI6eyJhY3RpdmUiOnRydWUsImJldGEiOmZhbHNlLCJkZWxldGVkX2F0IjpudWxsfX0.XaVKfbufGKikHdQEryyxHBPxwQ-J5rSDcLCd857ug4o"
+      "token": "eyJhbGciOiJIUzI1NiIsImtpZCI6ImsxIiwidHlwIjoiSldUIn0.eyJleHAiOjE4OTM0NTk2MDAsImlhdCI6MTg5MzQ1NjAwMCwic3ViIjoidXNlcl80MiIsInRyYWl0cyI6eyJhY3RpdmUiOnRydWUsImJldGEiOmZhbHNlLCJkZWxldGVkX2F0IjpudWxsfX0.Qkw0XuMXyxuYI1QUht7EDHa7dOPprE6JtNiqn6ZiIQQ"
     },
     {
       "name": "html_unsafe_traits",
       "secret": "spec-test-secret-1",
       "kid": "k1",
       "sub": "user_42",
-      "iat": 1730000000,
-      "exp": 1730003600,
+      "iat": 1893456000,
+      "exp": 1893459600,
       "traits": {
         "company": "Smith \u0026 Sons \u003cltd\u003e",
         "note": "a\u003eb"
       },
-      "token": "eyJhbGciOiJIUzI1NiIsImtpZCI6ImsxIiwidHlwIjoiSldUIn0.eyJleHAiOjE3MzAwMDM2MDAsImlhdCI6MTczMDAwMDAwMCwic3ViIjoidXNlcl80MiIsInRyYWl0cyI6eyJjb21wYW55IjoiU21pdGggXHUwMDI2IFNvbnMgXHUwMDNjbHRkXHUwMDNlIiwibm90ZSI6ImFcdTAwM2ViIn19.aCOQj3lfZZ3Obup8-pHnoxIrRhnauFpsuV9QmESrrV0"
+      "token": "eyJhbGciOiJIUzI1NiIsImtpZCI6ImsxIiwidHlwIjoiSldUIn0.eyJleHAiOjE4OTM0NTk2MDAsImlhdCI6MTg5MzQ1NjAwMCwic3ViIjoidXNlcl80MiIsInRyYWl0cyI6eyJjb21wYW55IjoiU21pdGggXHUwMDI2IFNvbnMgXHUwMDNjbHRkXHUwMDNlIiwibm90ZSI6ImFcdTAwM2ViIn19.0Edv-2DWz7U1npWNXg5LvreiXAaP6pDyh2yihrgF4o4"
+    },
+    {
+      "name": "js_separator_traits",
+      "secret": "spec-test-secret-1",
+      "kid": "k1",
+      "sub": "user_42",
+      "iat": 1893456000,
+      "exp": 1893459600,
+      "traits": {
+        "line_sep": "a\u2028b",
+        "para_sep": "c\u2029d"
+      },
+      "token": "eyJhbGciOiJIUzI1NiIsImtpZCI6ImsxIiwidHlwIjoiSldUIn0.eyJleHAiOjE4OTM0NTk2MDAsImlhdCI6MTg5MzQ1NjAwMCwic3ViIjoidXNlcl80MiIsInRyYWl0cyI6eyJsaW5lX3NlcCI6ImFcdTIwMjhiIiwicGFyYV9zZXAiOiJjXHUyMDI5ZCJ9fQ.IiwfNAprDY0TKtimzl8NsGkxftld6-DBOnfAWl1XATk"
     },
     {
       "name": "key_order",
       "secret": "spec-test-secret-1",
       "kid": "k1",
       "sub": "user_42",
-      "iat": 1730000000,
-      "exp": 1730003600,
+      "iat": 1893456000,
+      "exp": 1893459600,
       "traits": {
         "01num": "n",
         "Mid": "m",
         "alpha": "a",
         "zeta": "z"
       },
-      "token": "eyJhbGciOiJIUzI1NiIsImtpZCI6ImsxIiwidHlwIjoiSldUIn0.eyJleHAiOjE3MzAwMDM2MDAsImlhdCI6MTczMDAwMDAwMCwic3ViIjoidXNlcl80MiIsInRyYWl0cyI6eyIwMW51bSI6Im4iLCJNaWQiOiJtIiwiYWxwaGEiOiJhIiwiemV0YSI6InoifX0.q07new4WMOdSw98txjQDriz9nLwhOo6MniDo5xADTw8"
+      "token": "eyJhbGciOiJIUzI1NiIsImtpZCI6ImsxIiwidHlwIjoiSldUIn0.eyJleHAiOjE4OTM0NTk2MDAsImlhdCI6MTg5MzQ1NjAwMCwic3ViIjoidXNlcl80MiIsInRyYWl0cyI6eyIwMW51bSI6Im4iLCJNaWQiOiJtIiwiYWxwaGEiOiJhIiwiemV0YSI6InoifX0.Ibp14yFVyIYxcSj0WA1R19rKEdzDJyDv7jou7rM-edI"
     },
     {
       "name": "other_kid",
       "secret": "spec-test-secret-2",
       "kid": "2026-01",
       "sub": "user_42",
-      "iat": 1730000000,
-      "exp": 1730003600,
+      "iat": 1893456000,
+      "exp": 1893459600,
       "traits": {
         "plan": "free"
       },
-      "token": "eyJhbGciOiJIUzI1NiIsImtpZCI6IjIwMjYtMDEiLCJ0eXAiOiJKV1QifQ.eyJleHAiOjE3MzAwMDM2MDAsImlhdCI6MTczMDAwMDAwMCwic3ViIjoidXNlcl80MiIsInRyYWl0cyI6eyJwbGFuIjoiZnJlZSJ9fQ.iGV525AVTWhWkdQ1f8ewWtUp_HRtWBynyt1R9kuz7O4"
+      "token": "eyJhbGciOiJIUzI1NiIsImtpZCI6IjIwMjYtMDEiLCJ0eXAiOiJKV1QifQ.eyJleHAiOjE4OTM0NTk2MDAsImlhdCI6MTg5MzQ1NjAwMCwic3ViIjoidXNlcl80MiIsInRyYWl0cyI6eyJwbGFuIjoiZnJlZSJ9fQ.6ux95PVuB61zz6IiZY7xakGJm10dF-vCGX-WCn_UAPk"
     },
     {
       "name": "long_sub",
       "secret": "spec-test-secret-1",
       "kid": "k1",
       "sub": "uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu",
-      "iat": 1730000000,
-      "exp": 1730003600,
-      "token": "eyJhbGciOiJIUzI1NiIsImtpZCI6ImsxIiwidHlwIjoiSldUIn0.eyJleHAiOjE3MzAwMDM2MDAsImlhdCI6MTczMDAwMDAwMCwic3ViIjoidXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXUifQ.QQDYQO8gefv7d3lyNulEf2MfSHIWD3zPLMkzmZK1f34"
+      "iat": 1893456000,
+      "exp": 1893459600,
+      "token": "eyJhbGciOiJIUzI1NiIsImtpZCI6ImsxIiwidHlwIjoiSldUIn0.eyJleHAiOjE4OTM0NTk2MDAsImlhdCI6MTg5MzQ1NjAwMCwic3ViIjoidXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXUifQ.Hv8szj9zac_i5TaT8HTnkf29azq8dJalvNcNvWt4OIo"
     },
     {
       "name": "sub_with_colon",
       "secret": "spec-test-secret-1",
       "kid": "k1",
       "sub": "tenant:42:user:7",
-      "iat": 1730000000,
-      "exp": 1730003600,
-      "token": "eyJhbGciOiJIUzI1NiIsImtpZCI6ImsxIiwidHlwIjoiSldUIn0.eyJleHAiOjE3MzAwMDM2MDAsImlhdCI6MTczMDAwMDAwMCwic3ViIjoidGVuYW50OjQyOnVzZXI6NyJ9.JtGWyqgUELn0lkxKLMb_QocaeSsLRp0ZJ49x-YstK2c"
+      "iat": 1893456000,
+      "exp": 1893459600,
+      "token": "eyJhbGciOiJIUzI1NiIsImtpZCI6ImsxIiwidHlwIjoiSldUIn0.eyJleHAiOjE4OTM0NTk2MDAsImlhdCI6MTg5MzQ1NjAwMCwic3ViIjoidGVuYW50OjQyOnVzZXI6NyJ9.4Gai7f3UzZ8chOyboJDei-9WYHIR7vQmYT2Y7Xlk85I"
     },
     {
       "name": "email_sub",
       "secret": "spec-test-secret-1",
       "kid": "k1",
       "sub": "user@example.com",
-      "iat": 1730000000,
-      "exp": 1730003600,
+      "iat": 1893456000,
+      "exp": 1893459600,
       "traits": {
         "plan": "pro"
       },
-      "token": "eyJhbGciOiJIUzI1NiIsImtpZCI6ImsxIiwidHlwIjoiSldUIn0.eyJleHAiOjE3MzAwMDM2MDAsImlhdCI6MTczMDAwMDAwMCwic3ViIjoidXNlckBleGFtcGxlLmNvbSIsInRyYWl0cyI6eyJwbGFuIjoicHJvIn19.bgD-KWx4Ilnrtw8C4BpT392PyH-HV_OnaKlI09Nq6kk"
+      "token": "eyJhbGciOiJIUzI1NiIsImtpZCI6ImsxIiwidHlwIjoiSldUIn0.eyJleHAiOjE4OTM0NTk2MDAsImlhdCI6MTg5MzQ1NjAwMCwic3ViIjoidXNlckBleGFtcGxlLmNvbSIsInRyYWl0cyI6eyJwbGFuIjoicHJvIn19.dOj6tPn_zRhPf6d3t6WB7x90b4LAia78PuBLzBEd5Po"
     }
   ],
   "version": 1

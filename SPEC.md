@@ -77,7 +77,7 @@ Anything after construction never throws (contract 1).
 ```php
 $kilden->track(string $distinctId, string $event, array $properties = [], array $opts = []): void;
 $kilden->identify(string $distinctId, array $traits = [], array $opts = []): void;
-$kilden->alias(string $previousId, string $distinctId): void;
+$kilden->alias(string $previousId, string $distinctId): void;  // deliberately no $opts
 $kilden->isEnabled(string $flagKey, string $distinctId, array $opts = []): bool;
 $kilden->getFeatureFlag(string $flagKey, string $distinctId, array $opts = []); // false | true | string
 $kilden->flush(): void;   // blocking: drain the queue now
@@ -213,9 +213,10 @@ Body — exactly these keys, nothing else:
 Retry policy, frozen: up to **3 retries** per request (4 attempts total).
 Backoff before retry *n* (1-based) is `min(0.5 * 2^(n-1), 30)` seconds —
 0.5s, 1s, 2s — multiplied by a random jitter factor in `[0.5, 1.5]`. A
-`Retry-After: <seconds>` header on 429 replaces the computed backoff for that
-retry (no jitter). When retries are exhausted the batch is dropped, logged,
-and counted in the dropped-events counter.
+`Retry-After: <seconds>` header replaces the computed backoff for that retry
+(no jitter) on **any retryable status** — it is guaranteed on 429 and honored
+opportunistically elsewhere. When retries are exhausted the batch is dropped,
+logged, and counted in the dropped-events counter.
 
 Failed batches are **not** re-queued into the main queue (they would shuffle
 ordering and could evict fresh events); the retry loop owns the batch until
@@ -393,8 +394,8 @@ return `default`.
   **1000** distinct_ids. Calls with `person_properties` **bypass** the cache
   entirely (no read, no write): overridden evaluations are not reusable.
 - Timeout: the client `timeout` option. On timeout, network error, non-200,
-  or malformed body: return `default`, log once per failure, never throw
-  (contract 1), and do not cache the failure.
+  or malformed body: return `default`, log one line per failed call, never
+  throw (contract 1), and do not cache the failure.
 - Flag lookups never touch the event queue and are **not** retried — a flag
   answer that arrives after the retry budget is useless to the caller.
   One attempt, then `default`.

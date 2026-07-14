@@ -201,14 +201,14 @@ Body — exactly these keys, nothing else:
 
 | Response | SDK action |
 |---|---|
-| `200` (`{"status":"ok"}`) | done. Note: quota-exceeded projects also get `200` and events are dropped server-side — deliberate, so SDKs do not retry |
+| any `2xx` | done — the response body is **never parsed**; the status is the whole signal. Note: quota-exceeded projects also get `200` and events are dropped server-side — deliberate, so SDKs do not retry |
 | `400` | drop batch + log (malformed — retrying cannot fix it) |
 | `401` | drop batch + log (unknown write key) |
 | `403` | drop batch + log (origin not allowed) |
 | `413` | drop batch + log |
 | `429` | retry, waiting `Retry-After` seconds when the header is present |
 | `5xx` | retry |
-| timeout / network error / corrupt response | retry |
+| timeout / network error / malformed HTTP response | retry |
 
 Retry policy, frozen: up to **3 retries** per request (4 attempts total).
 Backoff before retry *n* (1-based) is `min(0.5 * 2^(n-1), 30)` seconds —

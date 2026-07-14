@@ -1,0 +1,1909 @@
+{
+  "algorithm": {
+    "bucket": "float64(uint64) / 2^64 * 100, IEEE 754 double precision, range [0, 100)",
+    "hash": "SHA-256 over the UTF-8 bytes of the input; take bytes [0..8) as a big-endian unsigned 64-bit integer",
+    "in_rollout": "bucket \u003c rollout_percentage (strict less-than, rollout_percentage is an integer 0..100)",
+    "rollout_input": "flag_key + \":\" + distinct_id",
+    "variant_input": "flag_key + \":\" + distinct_id + \":variant\"",
+    "variant_pick": "walk variants in order accumulating rollout_percentage; pick the first where point \u003c cumulative"
+  },
+  "rollout": [
+    {
+      "flag_key": "new_checkout",
+      "distinct_id": "user_42",
+      "hash_input": "new_checkout:user_42",
+      "uint64": "13495412839849483941",
+      "bucket": "73.1587795977679",
+      "bucket_floor": 73
+    },
+    {
+      "flag_key": "new_checkout",
+      "distinct_id": "anon_0190a1b2-c3d4-7e5f-8a6b-7c8d9e0f1a2b",
+      "hash_input": "new_checkout:anon_0190a1b2-c3d4-7e5f-8a6b-7c8d9e0f1a2b",
+      "uint64": "5736138203528524784",
+      "bucket": "31.095667509713625",
+      "bucket_floor": 31
+    },
+    {
+      "flag_key": "new_checkout",
+      "distinct_id": "user@example.com",
+      "hash_input": "new_checkout:user@example.com",
+      "uint64": "17637656363304852803",
+      "bucket": "95.61392673323952",
+      "bucket_floor": 95
+    },
+    {
+      "flag_key": "new_checkout",
+      "distinct_id": "12345",
+      "hash_input": "new_checkout:12345",
+      "uint64": "16759549834095004753",
+      "bucket": "90.8537017000244",
+      "bucket_floor": 90
+    },
+    {
+      "flag_key": "new_checkout",
+      "distinct_id": "",
+      "hash_input": "new_checkout:",
+      "uint64": "10764355111810031423",
+      "bucket": "58.35368598814941",
+      "bucket_floor": 58
+    },
+    {
+      "flag_key": "new_checkout",
+      "distinct_id": "id:with:colons",
+      "hash_input": "new_checkout:id:with:colons",
+      "uint64": "4838128081795156684",
+      "bucket": "26.22754488522718",
+      "bucket_floor": 26
+    },
+    {
+      "flag_key": "new_checkout",
+      "distinct_id": "ü",
+      "hash_input": "new_checkout:ü",
+      "uint64": "7494336296368564806",
+      "bucket": "40.62687846929884",
+      "bucket_floor": 40
+    },
+    {
+      "flag_key": "new_checkout",
+      "distinct_id": "中文用户",
+      "hash_input": "new_checkout:中文用户",
+      "uint64": "12554379613181181984",
+      "bucket": "68.05742825409382",
+      "bucket_floor": 68
+    },
+    {
+      "flag_key": "new_checkout",
+      "distinct_id": "🦄",
+      "hash_input": "new_checkout:🦄",
+      "uint64": "10563423829580741764",
+      "bucket": "57.26443532458294",
+      "bucket_floor": 57
+    },
+    {
+      "flag_key": "new_checkout",
+      "distinct_id": "0190a1b2-c3d4-7e5f-8a6b-7c8d9e0f1a2b",
+      "hash_input": "new_checkout:0190a1b2-c3d4-7e5f-8a6b-7c8d9e0f1a2b",
+      "uint64": "4839373118486883420",
+      "bucket": "26.234294242657146",
+      "bucket_floor": 26
+    },
+    {
+      "flag_key": "new_checkout",
+      "distinct_id": "0",
+      "hash_input": "new_checkout:0",
+      "uint64": "5191116794489398291",
+      "bucket": "28.141100531056967",
+      "bucket_floor": 28
+    },
+    {
+      "flag_key": "new_checkout",
+      "distinct_id": "true",
+      "hash_input": "new_checkout:true",
+      "uint64": "14690793583286908383",
+      "bucket": "79.63895159267888",
+      "bucket_floor": 79
+    },
+    {
+      "flag_key": "new_checkout",
+      "distinct_id": " leading-space",
+      "hash_input": "new_checkout: leading-space",
+      "uint64": "13904395680016298524",
+      "bucket": "75.37588001685866",
+      "bucket_floor": 75
+    },
+    {
+      "flag_key": "new_checkout",
+      "distinct_id": "trailing-space ",
+      "hash_input": "new_checkout:trailing-space ",
+      "uint64": "6903462943820837369",
+      "bucket": "37.42374760681864",
+      "bucket_floor": 37
+    },
+    {
+      "flag_key": "new_checkout",
+      "distinct_id": "id with spaces",
+      "hash_input": "new_checkout:id with spaces",
+      "uint64": "10583828534579489243",
+      "bucket": "57.37504945202577",
+      "bucket_floor": 57
+    },
+    {
+      "flag_key": "new_checkout",
+      "distinct_id": "CamelCaseId",
+      "hash_input": "new_checkout:CamelCaseId",
+      "uint64": "8523274813965278788",
+      "bucket": "46.204765349960695",
+      "bucket_floor": 46
+    },
+    {
+      "flag_key": "new_checkout",
+      "distinct_id": "ID-123",
+      "hash_input": "new_checkout:ID-123",
+      "uint64": "3479677308560232335",
+      "bucket": "18.863368487447584",
+      "bucket_floor": 18
+    },
+    {
+      "flag_key": "new_checkout",
+      "distinct_id": "a:b",
+      "hash_input": "new_checkout:a:b",
+      "uint64": "1045369562754833818",
+      "bucket": "5.666959754945063",
+      "bucket_floor": 5
+    },
+    {
+      "flag_key": "new_checkout",
+      "distinct_id": "line\nbreak",
+      "hash_input": "new_checkout:line\nbreak",
+      "uint64": "9304138934827598374",
+      "bucket": "50.43783823123525",
+      "bucket_floor": 50
+    },
+    {
+      "flag_key": "new_checkout",
+      "distinct_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "hash_input": "new_checkout:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "uint64": "4539073095902102671",
+      "bucket": "24.60636455823782",
+      "bucket_floor": 24
+    },
+    {
+      "flag_key": "dark-mode",
+      "distinct_id": "user_42",
+      "hash_input": "dark-mode:user_42",
+      "uint64": "13717116590252857358",
+      "bucket": "74.36063803694552",
+      "bucket_floor": 74
+    },
+    {
+      "flag_key": "dark-mode",
+      "distinct_id": "anon_0190a1b2-c3d4-7e5f-8a6b-7c8d9e0f1a2b",
+      "hash_input": "dark-mode:anon_0190a1b2-c3d4-7e5f-8a6b-7c8d9e0f1a2b",
+      "uint64": "15497726024881099618",
+      "bucket": "84.01334112380614",
+      "bucket_floor": 84
+    },
+    {
+      "flag_key": "dark-mode",
+      "distinct_id": "user@example.com",
+      "hash_input": "dark-mode:user@example.com",
+      "uint64": "6677012004044223475",
+      "bucket": "36.19615460248269",
+      "bucket_floor": 36
+    },
+    {
+      "flag_key": "dark-mode",
+      "distinct_id": "12345",
+      "hash_input": "dark-mode:12345",
+      "uint64": "2733068260252939810",
+      "bucket": "14.815992726587076",
+      "bucket_floor": 14
+    },
+    {
+      "flag_key": "dark-mode",
+      "distinct_id": "",
+      "hash_input": "dark-mode:",
+      "uint64": "865950961841845242",
+      "bucket": "4.694329570474204",
+      "bucket_floor": 4
+    },
+    {
+      "flag_key": "dark-mode",
+      "distinct_id": "id:with:colons",
+      "hash_input": "dark-mode:id:with:colons",
+      "uint64": "13660577090550816203",
+      "bucket": "74.05413679490454",
+      "bucket_floor": 74
+    },
+    {
+      "flag_key": "dark-mode",
+      "distinct_id": "ü",
+      "hash_input": "dark-mode:ü",
+      "uint64": "12622345112731742850",
+      "bucket": "68.42586996542772",
+      "bucket_floor": 68
+    },
+    {
+      "flag_key": "dark-mode",
+      "distinct_id": "中文用户",
+      "hash_input": "dark-mode:中文用户",
+      "uint64": "8206506704541133954",
+      "bucket": "44.48756198790178",
+      "bucket_floor": 44
+    },
+    {
+      "flag_key": "dark-mode",
+      "distinct_id": "🦄",
+      "hash_input": "dark-mode:🦄",
+      "uint64": "1848744009110710434",
+      "bucket": "10.022061355236968",
+      "bucket_floor": 10
+    },
+    {
+      "flag_key": "dark-mode",
+      "distinct_id": "0190a1b2-c3d4-7e5f-8a6b-7c8d9e0f1a2b",
+      "hash_input": "dark-mode:0190a1b2-c3d4-7e5f-8a6b-7c8d9e0f1a2b",
+      "uint64": "6638483793670991382",
+      "bucket": "35.987292755539514",
+      "bucket_floor": 35
+    },
+    {
+      "flag_key": "dark-mode",
+      "distinct_id": "0",
+      "hash_input": "dark-mode:0",
+      "uint64": "3770761323115505525",
+      "bucket": "20.441338092230733",
+      "bucket_floor": 20
+    },
+    {
+      "flag_key": "dark-mode",
+      "distinct_id": "true",
+      "hash_input": "dark-mode:true",
+      "uint64": "17904920546226384440",
+      "bucket": "97.06276877199495",
+      "bucket_floor": 97
+    },
+    {
+      "flag_key": "dark-mode",
+      "distinct_id": " leading-space",
+      "hash_input": "dark-mode: leading-space",
+      "uint64": "1577538615913869249",
+      "bucket": "8.551853972767965",
+      "bucket_floor": 8
+    },
+    {
+      "flag_key": "dark-mode",
+      "distinct_id": "trailing-space ",
+      "hash_input": "dark-mode:trailing-space ",
+      "uint64": "2301121058661519897",
+      "bucket": "12.474402254764819",
+      "bucket_floor": 12
+    },
+    {
+      "flag_key": "dark-mode",
+      "distinct_id": "id with spaces",
+      "hash_input": "dark-mode:id with spaces",
+      "uint64": "7413662641397694812",
+      "bucket": "40.18954570939002",
+      "bucket_floor": 40
+    },
+    {
+      "flag_key": "dark-mode",
+      "distinct_id": "CamelCaseId",
+      "hash_input": "dark-mode:CamelCaseId",
+      "uint64": "16708899619079940028",
+      "bucket": "90.57912633424344",
+      "bucket_floor": 90
+    },
+    {
+      "flag_key": "dark-mode",
+      "distinct_id": "ID-123",
+      "hash_input": "dark-mode:ID-123",
+      "uint64": "2899260507754764519",
+      "bucket": "15.716922705545711",
+      "bucket_floor": 15
+    },
+    {
+      "flag_key": "dark-mode",
+      "distinct_id": "a:b",
+      "hash_input": "dark-mode:a:b",
+      "uint64": "8025981307150375671",
+      "bucket": "43.50893184770243",
+      "bucket_floor": 43
+    },
+    {
+      "flag_key": "dark-mode",
+      "distinct_id": "line\nbreak",
+      "hash_input": "dark-mode:line\nbreak",
+      "uint64": "3500665037306437172",
+      "bucket": "18.977143192958444",
+      "bucket_floor": 18
+    },
+    {
+      "flag_key": "dark-mode",
+      "distinct_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "hash_input": "dark-mode:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "uint64": "11749603676344020944",
+      "bucket": "63.69472915867929",
+      "bucket_floor": 63
+    },
+    {
+      "flag_key": "beta",
+      "distinct_id": "user_42",
+      "hash_input": "beta:user_42",
+      "uint64": "5379946913859995122",
+      "bucket": "29.164750659318457",
+      "bucket_floor": 29
+    },
+    {
+      "flag_key": "beta",
+      "distinct_id": "anon_0190a1b2-c3d4-7e5f-8a6b-7c8d9e0f1a2b",
+      "hash_input": "beta:anon_0190a1b2-c3d4-7e5f-8a6b-7c8d9e0f1a2b",
+      "uint64": "1188338644506033063",
+      "bucket": "6.441996700109604",
+      "bucket_floor": 6
+    },
+    {
+      "flag_key": "beta",
+      "distinct_id": "user@example.com",
+      "hash_input": "beta:user@example.com",
+      "uint64": "502254675513852940",
+      "bucket": "2.722728051665607",
+      "bucket_floor": 2
+    },
+    {
+      "flag_key": "beta",
+      "distinct_id": "12345",
+      "hash_input": "beta:12345",
+      "uint64": "3966426678348530216",
+      "bucket": "21.5020421083497",
+      "bucket_floor": 21
+    },
+    {
+      "flag_key": "beta",
+      "distinct_id": "",
+      "hash_input": "beta:",
+      "uint64": "8234079112883207321",
+      "bucket": "44.63703231302744",
+      "bucket_floor": 44
+    },
+    {
+      "flag_key": "beta",
+      "distinct_id": "id:with:colons",
+      "hash_input": "beta:id:with:colons",
+      "uint64": "4287571756309162310",
+      "bucket": "23.242973064389417",
+      "bucket_floor": 23
+    },
+    {
+      "flag_key": "beta",
+      "distinct_id": "ü",
+      "hash_input": "beta:ü",
+      "uint64": "1769976867928919253",
+      "bucket": "9.595063827288115",
+      "bucket_floor": 9
+    },
+    {
+      "flag_key": "beta",
+      "distinct_id": "中文用户",
+      "hash_input": "beta:中文用户",
+      "uint64": "6371336900554815223",
+      "bucket": "34.53908654609295",
+      "bucket_floor": 34
+    },
+    {
+      "flag_key": "beta",
+      "distinct_id": "🦄",
+      "hash_input": "beta:🦄",
+      "uint64": "13237805693451213261",
+      "bucket": "71.76228845890392",
+      "bucket_floor": 71
+    },
+    {
+      "flag_key": "beta",
+      "distinct_id": "0190a1b2-c3d4-7e5f-8a6b-7c8d9e0f1a2b",
+      "hash_input": "beta:0190a1b2-c3d4-7e5f-8a6b-7c8d9e0f1a2b",
+      "uint64": "14296924002869292519",
+      "bucket": "77.5037803188552",
+      "bucket_floor": 77
+    },
+    {
+      "flag_key": "beta",
+      "distinct_id": "0",
+      "hash_input": "beta:0",
+      "uint64": "14940715793995979528",
+      "bucket": "80.99378261169464",
+      "bucket_floor": 80
+    },
+    {
+      "flag_key": "beta",
+      "distinct_id": "true",
+      "hash_input": "beta:true",
+      "uint64": "7665195301495465477",
+      "bucket": "41.553106992035325",
+      "bucket_floor": 41
+    },
+    {
+      "flag_key": "beta",
+      "distinct_id": " leading-space",
+      "hash_input": "beta: leading-space",
+      "uint64": "10410318895542828461",
+      "bucket": "56.43445181407216",
+      "bucket_floor": 56
+    },
+    {
+      "flag_key": "beta",
+      "distinct_id": "trailing-space ",
+      "hash_input": "beta:trailing-space ",
+      "uint64": "6582448262075730789",
+      "bucket": "35.683523530079704",
+      "bucket_floor": 35
+    },
+    {
+      "flag_key": "beta",
+      "distinct_id": "id with spaces",
+      "hash_input": "beta:id with spaces",
+      "uint64": "9363238760018770449",
+      "bucket": "50.75821902556415",
+      "bucket_floor": 50
+    },
+    {
+      "flag_key": "beta",
+      "distinct_id": "CamelCaseId",
+      "hash_input": "beta:CamelCaseId",
+      "uint64": "1872234791409771441",
+      "bucket": "10.149405141247097",
+      "bucket_floor": 10
+    },
+    {
+      "flag_key": "beta",
+      "distinct_id": "ID-123",
+      "hash_input": "beta:ID-123",
+      "uint64": "16244508427541345119",
+      "bucket": "88.06165664049705",
+      "bucket_floor": 88
+    },
+    {
+      "flag_key": "beta",
+      "distinct_id": "a:b",
+      "hash_input": "beta:a:b",
+      "uint64": "13757698205724568464",
+      "bucket": "74.58063141523252",
+      "bucket_floor": 74
+    },
+    {
+      "flag_key": "beta",
+      "distinct_id": "line\nbreak",
+      "hash_input": "beta:line\nbreak",
+      "uint64": "40810897732780166",
+      "bucket": "0.22123631991482004",
+      "bucket_floor": 0
+    },
+    {
+      "flag_key": "beta",
+      "distinct_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "hash_input": "beta:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "uint64": "12154188977269060609",
+      "bucket": "65.88799046977243",
+      "bucket_floor": 65
+    },
+    {
+      "flag_key": "flag_with_underscores",
+      "distinct_id": "user_42",
+      "hash_input": "flag_with_underscores:user_42",
+      "uint64": "4573400665929560739",
+      "bucket": "24.792454688237413",
+      "bucket_floor": 24
+    },
+    {
+      "flag_key": "flag_with_underscores",
+      "distinct_id": "anon_0190a1b2-c3d4-7e5f-8a6b-7c8d9e0f1a2b",
+      "hash_input": "flag_with_underscores:anon_0190a1b2-c3d4-7e5f-8a6b-7c8d9e0f1a2b",
+      "uint64": "9754615523497475082",
+      "bucket": "52.87987671168395",
+      "bucket_floor": 52
+    },
+    {
+      "flag_key": "flag_with_underscores",
+      "distinct_id": "user@example.com",
+      "hash_input": "flag_with_underscores:user@example.com",
+      "uint64": "7100040306242169390",
+      "bucket": "38.48939562381204",
+      "bucket_floor": 38
+    },
+    {
+      "flag_key": "flag_with_underscores",
+      "distinct_id": "12345",
+      "hash_input": "flag_with_underscores:12345",
+      "uint64": "8850918601343937091",
+      "bucket": "47.9809258803473",
+      "bucket_floor": 47
+    },
+    {
+      "flag_key": "flag_with_underscores",
+      "distinct_id": "",
+      "hash_input": "flag_with_underscores:",
+      "uint64": "10880696048603285602",
+      "bucket": "58.98437147025063",
+      "bucket_floor": 58
+    },
+    {
+      "flag_key": "flag_with_underscores",
+      "distinct_id": "id:with:colons",
+      "hash_input": "flag_with_underscores:id:with:colons",
+      "uint64": "1508704592983602387",
+      "bucket": "8.178703986758402",
+      "bucket_floor": 8
+    },
+    {
+      "flag_key": "flag_with_underscores",
+      "distinct_id": "ü",
+      "hash_input": "flag_with_underscores:ü",
+      "uint64": "16839487823835039759",
+      "bucket": "91.28704641072575",
+      "bucket_floor": 91
+    },
+    {
+      "flag_key": "flag_with_underscores",
+      "distinct_id": "中文用户",
+      "hash_input": "flag_with_underscores:中文用户",
+      "uint64": "11825258944222706515",
+      "bucket": "64.1048571876495",
+      "bucket_floor": 64
+    },
+    {
+      "flag_key": "flag_with_underscores",
+      "distinct_id": "🦄",
+      "hash_input": "flag_with_underscores:🦄",
+      "uint64": "12155090465166005382",
+      "bucket": "65.89287744545412",
+      "bucket_floor": 65
+    },
+    {
+      "flag_key": "flag_with_underscores",
+      "distinct_id": "0190a1b2-c3d4-7e5f-8a6b-7c8d9e0f1a2b",
+      "hash_input": "flag_with_underscores:0190a1b2-c3d4-7e5f-8a6b-7c8d9e0f1a2b",
+      "uint64": "14320165455011389056",
+      "bucket": "77.6297724833761",
+      "bucket_floor": 77
+    },
+    {
+      "flag_key": "flag_with_underscores",
+      "distinct_id": "0",
+      "hash_input": "flag_with_underscores:0",
+      "uint64": "17868601081249268757",
+      "bucket": "96.86588055783646",
+      "bucket_floor": 96
+    },
+    {
+      "flag_key": "flag_with_underscores",
+      "distinct_id": "true",
+      "hash_input": "flag_with_underscores:true",
+      "uint64": "169285323439797577",
+      "bucket": "0.9176975772166991",
+      "bucket_floor": 0
+    },
+    {
+      "flag_key": "flag_with_underscores",
+      "distinct_id": " leading-space",
+      "hash_input": "flag_with_underscores: leading-space",
+      "uint64": "5798086765929003711",
+      "bucket": "31.43149133939839",
+      "bucket_floor": 31
+    },
+    {
+      "flag_key": "flag_with_underscores",
+      "distinct_id": "trailing-space ",
+      "hash_input": "flag_with_underscores:trailing-space ",
+      "uint64": "14960747494921526555",
+      "bucket": "81.10237468000494",
+      "bucket_floor": 81
+    },
+    {
+      "flag_key": "flag_with_underscores",
+      "distinct_id": "id with spaces",
+      "hash_input": "flag_with_underscores:id with spaces",
+      "uint64": "12729819001942896469",
+      "bucket": "69.00848708626872",
+      "bucket_floor": 69
+    },
+    {
+      "flag_key": "flag_with_underscores",
+      "distinct_id": "CamelCaseId",
+      "hash_input": "flag_with_underscores:CamelCaseId",
+      "uint64": "922542560881951376",
+      "bucket": "5.001113243592762",
+      "bucket_floor": 5
+    },
+    {
+      "flag_key": "flag_with_underscores",
+      "distinct_id": "ID-123",
+      "hash_input": "flag_with_underscores:ID-123",
+      "uint64": "1326614237378964586",
+      "bucket": "7.19159019108237",
+      "bucket_floor": 7
+    },
+    {
+      "flag_key": "flag_with_underscores",
+      "distinct_id": "a:b",
+      "hash_input": "flag_with_underscores:a:b",
+      "uint64": "11509498458009822617",
+      "bucket": "62.393116161964066",
+      "bucket_floor": 62
+    },
+    {
+      "flag_key": "flag_with_underscores",
+      "distinct_id": "line\nbreak",
+      "hash_input": "flag_with_underscores:line\nbreak",
+      "uint64": "4891522259614744363",
+      "bucket": "26.51699530317755",
+      "bucket_floor": 26
+    },
+    {
+      "flag_key": "flag_with_underscores",
+      "distinct_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "hash_input": "flag_with_underscores:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "uint64": "1116756549544734141",
+      "bucket": "6.053949385769083",
+      "bucket_floor": 6
+    },
+    {
+      "flag_key": "UPPERCASE-FLAG",
+      "distinct_id": "user_42",
+      "hash_input": "UPPERCASE-FLAG:user_42",
+      "uint64": "3606202812389460095",
+      "bucket": "19.549264618079942",
+      "bucket_floor": 19
+    },
+    {
+      "flag_key": "UPPERCASE-FLAG",
+      "distinct_id": "anon_0190a1b2-c3d4-7e5f-8a6b-7c8d9e0f1a2b",
+      "hash_input": "UPPERCASE-FLAG:anon_0190a1b2-c3d4-7e5f-8a6b-7c8d9e0f1a2b",
+      "uint64": "6688860884975393671",
+      "bucket": "36.260387514718175",
+      "bucket_floor": 36
+    },
+    {
+      "flag_key": "UPPERCASE-FLAG",
+      "distinct_id": "user@example.com",
+      "hash_input": "UPPERCASE-FLAG:user@example.com",
+      "uint64": "13744909778984376341",
+      "bucket": "74.51130521496057",
+      "bucket_floor": 74
+    },
+    {
+      "flag_key": "UPPERCASE-FLAG",
+      "distinct_id": "12345",
+      "hash_input": "UPPERCASE-FLAG:12345",
+      "uint64": "8231236049146821351",
+      "bucket": "44.621620033629924",
+      "bucket_floor": 44
+    },
+    {
+      "flag_key": "UPPERCASE-FLAG",
+      "distinct_id": "",
+      "hash_input": "UPPERCASE-FLAG:",
+      "uint64": "15294095208279186089",
+      "bucket": "82.90945625508218",
+      "bucket_floor": 82
+    },
+    {
+      "flag_key": "UPPERCASE-FLAG",
+      "distinct_id": "id:with:colons",
+      "hash_input": "UPPERCASE-FLAG:id:with:colons",
+      "uint64": "9147083916518298126",
+      "bucket": "49.58644127098178",
+      "bucket_floor": 49
+    },
+    {
+      "flag_key": "UPPERCASE-FLAG",
+      "distinct_id": "ü",
+      "hash_input": "UPPERCASE-FLAG:ü",
+      "uint64": "8643012169759025754",
+      "bucket": "46.85386285635695",
+      "bucket_floor": 46
+    },
+    {
+      "flag_key": "UPPERCASE-FLAG",
+      "distinct_id": "中文用户",
+      "hash_input": "UPPERCASE-FLAG:中文用户",
+      "uint64": "10385994396308073151",
+      "bucket": "56.302588439497434",
+      "bucket_floor": 56
+    },
+    {
+      "flag_key": "UPPERCASE-FLAG",
+      "distinct_id": "🦄",
+      "hash_input": "UPPERCASE-FLAG:🦄",
+      "uint64": "15910271480018957419",
+      "bucket": "86.24975451735358",
+      "bucket_floor": 86
+    },
+    {
+      "flag_key": "UPPERCASE-FLAG",
+      "distinct_id": "0190a1b2-c3d4-7e5f-8a6b-7c8d9e0f1a2b",
+      "hash_input": "UPPERCASE-FLAG:0190a1b2-c3d4-7e5f-8a6b-7c8d9e0f1a2b",
+      "uint64": "5197015939617926735",
+      "bucket": "28.17307986087776",
+      "bucket_floor": 28
+    },
+    {
+      "flag_key": "UPPERCASE-FLAG",
+      "distinct_id": "0",
+      "hash_input": "UPPERCASE-FLAG:0",
+      "uint64": "2404399634102663244",
+      "bucket": "13.034276534087297",
+      "bucket_floor": 13
+    },
+    {
+      "flag_key": "UPPERCASE-FLAG",
+      "distinct_id": "true",
+      "hash_input": "UPPERCASE-FLAG:true",
+      "uint64": "15773208444303245514",
+      "bucket": "85.50673431190141",
+      "bucket_floor": 85
+    },
+    {
+      "flag_key": "UPPERCASE-FLAG",
+      "distinct_id": " leading-space",
+      "hash_input": "UPPERCASE-FLAG: leading-space",
+      "uint64": "1833351741712138118",
+      "bucket": "9.938619706471918",
+      "bucket_floor": 9
+    },
+    {
+      "flag_key": "UPPERCASE-FLAG",
+      "distinct_id": "trailing-space ",
+      "hash_input": "UPPERCASE-FLAG:trailing-space ",
+      "uint64": "3880016338981356190",
+      "bucket": "21.0336107200142",
+      "bucket_floor": 21
+    },
+    {
+      "flag_key": "UPPERCASE-FLAG",
+      "distinct_id": "id with spaces",
+      "hash_input": "UPPERCASE-FLAG:id with spaces",
+      "uint64": "14000474305357921159",
+      "bucket": "75.8967232884827",
+      "bucket_floor": 75
+    },
+    {
+      "flag_key": "UPPERCASE-FLAG",
+      "distinct_id": "CamelCaseId",
+      "hash_input": "UPPERCASE-FLAG:CamelCaseId",
+      "uint64": "6098657700361181392",
+      "bucket": "33.06088963988522",
+      "bucket_floor": 33
+    },
+    {
+      "flag_key": "UPPERCASE-FLAG",
+      "distinct_id": "ID-123",
+      "hash_input": "UPPERCASE-FLAG:ID-123",
+      "uint64": "17505221068217597290",
+      "bucket": "94.89599356000271",
+      "bucket_floor": 94
+    },
+    {
+      "flag_key": "UPPERCASE-FLAG",
+      "distinct_id": "a:b",
+      "hash_input": "UPPERCASE-FLAG:a:b",
+      "uint64": "14723049529960455571",
+      "bucket": "79.81381142997405",
+      "bucket_floor": 79
+    },
+    {
+      "flag_key": "UPPERCASE-FLAG",
+      "distinct_id": "line\nbreak",
+      "hash_input": "UPPERCASE-FLAG:line\nbreak",
+      "uint64": "6910408560907464581",
+      "bucket": "37.461399872491505",
+      "bucket_floor": 37
+    },
+    {
+      "flag_key": "UPPERCASE-FLAG",
+      "distinct_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "hash_input": "UPPERCASE-FLAG:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "uint64": "15436787366743517952",
+      "bucket": "83.68299199610055",
+      "bucket_floor": 83
+    },
+    {
+      "flag_key": "flag:with:colons",
+      "distinct_id": "user_42",
+      "hash_input": "flag:with:colons:user_42",
+      "uint64": "877760231968222636",
+      "bucket": "4.758347752106636",
+      "bucket_floor": 4
+    },
+    {
+      "flag_key": "flag:with:colons",
+      "distinct_id": "anon_0190a1b2-c3d4-7e5f-8a6b-7c8d9e0f1a2b",
+      "hash_input": "flag:with:colons:anon_0190a1b2-c3d4-7e5f-8a6b-7c8d9e0f1a2b",
+      "uint64": "1441904924255430635",
+      "bucket": "7.816582256976423",
+      "bucket_floor": 7
+    },
+    {
+      "flag_key": "flag:with:colons",
+      "distinct_id": "user@example.com",
+      "hash_input": "flag:with:colons:user@example.com",
+      "uint64": "18121050718943490333",
+      "bucket": "98.23441278599272",
+      "bucket_floor": 98
+    },
+    {
+      "flag_key": "flag:with:colons",
+      "distinct_id": "12345",
+      "hash_input": "flag:with:colons:12345",
+      "uint64": "12757727742669433419",
+      "bucket": "69.15978067290395",
+      "bucket_floor": 69
+    },
+    {
+      "flag_key": "flag:with:colons",
+      "distinct_id": "",
+      "hash_input": "flag:with:colons:",
+      "uint64": "5728211612071105",
+      "bucket": "0.03105269737132093",
+      "bucket_floor": 0
+    },
+    {
+      "flag_key": "flag:with:colons",
+      "distinct_id": "id:with:colons",
+      "hash_input": "flag:with:colons:id:with:colons",
+      "uint64": "17884823209787153666",
+      "bucket": "96.95382089285202",
+      "bucket_floor": 96
+    },
+    {
+      "flag_key": "flag:with:colons",
+      "distinct_id": "ü",
+      "hash_input": "flag:with:colons:ü",
+      "uint64": "15593348725788419408",
+      "bucket": "84.53171282411938",
+      "bucket_floor": 84
+    },
+    {
+      "flag_key": "flag:with:colons",
+      "distinct_id": "中文用户",
+      "hash_input": "flag:with:colons:中文用户",
+      "uint64": "18370922067884588030",
+      "bucket": "99.58896808281182",
+      "bucket_floor": 99
+    },
+    {
+      "flag_key": "flag:with:colons",
+      "distinct_id": "🦄",
+      "hash_input": "flag:with:colons:🦄",
+      "uint64": "2736713807136652909",
+      "bucket": "14.835755275843173",
+      "bucket_floor": 14
+    },
+    {
+      "flag_key": "flag:with:colons",
+      "distinct_id": "0190a1b2-c3d4-7e5f-8a6b-7c8d9e0f1a2b",
+      "hash_input": "flag:with:colons:0190a1b2-c3d4-7e5f-8a6b-7c8d9e0f1a2b",
+      "uint64": "17502268393020627376",
+      "bucket": "94.87998707568671",
+      "bucket_floor": 94
+    },
+    {
+      "flag_key": "flag:with:colons",
+      "distinct_id": "0",
+      "hash_input": "flag:with:colons:0",
+      "uint64": "18107257971983394729",
+      "bucket": "98.15964215489933",
+      "bucket_floor": 98
+    },
+    {
+      "flag_key": "flag:with:colons",
+      "distinct_id": "true",
+      "hash_input": "flag:with:colons:true",
+      "uint64": "1183580144431913241",
+      "bucket": "6.416200819518937",
+      "bucket_floor": 6
+    },
+    {
+      "flag_key": "flag:with:colons",
+      "distinct_id": " leading-space",
+      "hash_input": "flag:with:colons: leading-space",
+      "uint64": "15294633402141505059",
+      "bucket": "82.91237380985591",
+      "bucket_floor": 82
+    },
+    {
+      "flag_key": "flag:with:colons",
+      "distinct_id": "trailing-space ",
+      "hash_input": "flag:with:colons:trailing-space ",
+      "uint64": "4384263937147081458",
+      "bucket": "23.767142427023582",
+      "bucket_floor": 23
+    },
+    {
+      "flag_key": "flag:with:colons",
+      "distinct_id": "id with spaces",
+      "hash_input": "flag:with:colons:id with spaces",
+      "uint64": "3943171996149145372",
+      "bucket": "21.375978223544536",
+      "bucket_floor": 21
+    },
+    {
+      "flag_key": "flag:with:colons",
+      "distinct_id": "CamelCaseId",
+      "hash_input": "flag:with:colons:CamelCaseId",
+      "uint64": "7356434322704488249",
+      "bucket": "39.87931037211568",
+      "bucket_floor": 39
+    },
+    {
+      "flag_key": "flag:with:colons",
+      "distinct_id": "ID-123",
+      "hash_input": "flag:with:colons:ID-123",
+      "uint64": "1750951768632760949",
+      "bucket": "9.491928557344878",
+      "bucket_floor": 9
+    },
+    {
+      "flag_key": "flag:with:colons",
+      "distinct_id": "a:b",
+      "hash_input": "flag:with:colons:a:b",
+      "uint64": "9831568966894171612",
+      "bucket": "53.29704216423864",
+      "bucket_floor": 53
+    },
+    {
+      "flag_key": "flag:with:colons",
+      "distinct_id": "line\nbreak",
+      "hash_input": "flag:with:colons:line\nbreak",
+      "uint64": "15077166275619292088",
+      "bucket": "81.7334821547581",
+      "bucket_floor": 81
+    },
+    {
+      "flag_key": "flag:with:colons",
+      "distinct_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "hash_input": "flag:with:colons:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "uint64": "6091844798070676275",
+      "bucket": "33.02395682256373",
+      "bucket_floor": 33
+    },
+    {
+      "flag_key": "ünïcode-flag",
+      "distinct_id": "user_42",
+      "hash_input": "ünïcode-flag:user_42",
+      "uint64": "7639363086012291000",
+      "bucket": "41.41307027130047",
+      "bucket_floor": 41
+    },
+    {
+      "flag_key": "ünïcode-flag",
+      "distinct_id": "anon_0190a1b2-c3d4-7e5f-8a6b-7c8d9e0f1a2b",
+      "hash_input": "ünïcode-flag:anon_0190a1b2-c3d4-7e5f-8a6b-7c8d9e0f1a2b",
+      "uint64": "4373581931706409404",
+      "bucket": "23.70923515949719",
+      "bucket_floor": 23
+    },
+    {
+      "flag_key": "ünïcode-flag",
+      "distinct_id": "user@example.com",
+      "hash_input": "ünïcode-flag:user@example.com",
+      "uint64": "7600331489791112332",
+      "bucket": "41.201479564207574",
+      "bucket_floor": 41
+    },
+    {
+      "flag_key": "ünïcode-flag",
+      "distinct_id": "12345",
+      "hash_input": "ünïcode-flag:12345",
+      "uint64": "11958168347815675883",
+      "bucket": "64.82536050824575",
+      "bucket_floor": 64
+    },
+    {
+      "flag_key": "ünïcode-flag",
+      "distinct_id": "",
+      "hash_input": "ünïcode-flag:",
+      "uint64": "14904526536920774683",
+      "bucket": "80.79760025598678",
+      "bucket_floor": 80
+    },
+    {
+      "flag_key": "ünïcode-flag",
+      "distinct_id": "id:with:colons",
+      "hash_input": "ünïcode-flag:id:with:colons",
+      "uint64": "9513998767596935722",
+      "bucket": "51.57549066426505",
+      "bucket_floor": 51
+    },
+    {
+      "flag_key": "ünïcode-flag",
+      "distinct_id": "ü",
+      "hash_input": "ünïcode-flag:ü",
+      "uint64": "14398256949019585983",
+      "bucket": "78.05310732065773",
+      "bucket_floor": 78
+    },
+    {
+      "flag_key": "ünïcode-flag",
+      "distinct_id": "中文用户",
+      "hash_input": "ünïcode-flag:中文用户",
+      "uint64": "16936223759977785926",
+      "bucket": "91.81145297134266",
+      "bucket_floor": 91
+    },
+    {
+      "flag_key": "ünïcode-flag",
+      "distinct_id": "🦄",
+      "hash_input": "ünïcode-flag:🦄",
+      "uint64": "17395980803989684798",
+      "bucket": "94.30380090100874",
+      "bucket_floor": 94
+    },
+    {
+      "flag_key": "ünïcode-flag",
+      "distinct_id": "0190a1b2-c3d4-7e5f-8a6b-7c8d9e0f1a2b",
+      "hash_input": "ünïcode-flag:0190a1b2-c3d4-7e5f-8a6b-7c8d9e0f1a2b",
+      "uint64": "3803217300842359097",
+      "bucket": "20.61728230003871",
+      "bucket_floor": 20
+    },
+    {
+      "flag_key": "ünïcode-flag",
+      "distinct_id": "0",
+      "hash_input": "ünïcode-flag:0",
+      "uint64": "13345889573697705674",
+      "bucket": "72.34821234777348",
+      "bucket_floor": 72
+    },
+    {
+      "flag_key": "ünïcode-flag",
+      "distinct_id": "true",
+      "hash_input": "ünïcode-flag:true",
+      "uint64": "6917408455222789302",
+      "bucket": "37.49934637561073",
+      "bucket_floor": 37
+    },
+    {
+      "flag_key": "ünïcode-flag",
+      "distinct_id": " leading-space",
+      "hash_input": "ünïcode-flag: leading-space",
+      "uint64": "5141678735612958262",
+      "bucket": "27.873096276870456",
+      "bucket_floor": 27
+    },
+    {
+      "flag_key": "ünïcode-flag",
+      "distinct_id": "trailing-space ",
+      "hash_input": "ünïcode-flag:trailing-space ",
+      "uint64": "9225078668037117492",
+      "bucket": "50.00925166617763",
+      "bucket_floor": 50
+    },
+    {
+      "flag_key": "ünïcode-flag",
+      "distinct_id": "id with spaces",
+      "hash_input": "ünïcode-flag:id with spaces",
+      "uint64": "15584642353785371098",
+      "bucket": "84.48451548691853",
+      "bucket_floor": 84
+    },
+    {
+      "flag_key": "ünïcode-flag",
+      "distinct_id": "CamelCaseId",
+      "hash_input": "ünïcode-flag:CamelCaseId",
+      "uint64": "941252724352447203",
+      "bucket": "5.102541243004115",
+      "bucket_floor": 5
+    },
+    {
+      "flag_key": "ünïcode-flag",
+      "distinct_id": "ID-123",
+      "hash_input": "ünïcode-flag:ID-123",
+      "uint64": "14428326311325733088",
+      "bucket": "78.21611366034563",
+      "bucket_floor": 78
+    },
+    {
+      "flag_key": "ünïcode-flag",
+      "distinct_id": "a:b",
+      "hash_input": "ünïcode-flag:a:b",
+      "uint64": "14042006084075869009",
+      "bucket": "76.12186751204864",
+      "bucket_floor": 76
+    },
+    {
+      "flag_key": "ünïcode-flag",
+      "distinct_id": "line\nbreak",
+      "hash_input": "ünïcode-flag:line\nbreak",
+      "uint64": "8641206417645336668",
+      "bucket": "46.84407385453378",
+      "bucket_floor": 46
+    },
+    {
+      "flag_key": "ünïcode-flag",
+      "distinct_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "hash_input": "ünïcode-flag:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "uint64": "13806003992154439590",
+      "bucket": "74.84249760818696",
+      "bucket_floor": 74
+    },
+    {
+      "flag_key": "日本語フラグ",
+      "distinct_id": "user_42",
+      "hash_input": "日本語フラグ:user_42",
+      "uint64": "4364014404676724511",
+      "bucket": "23.657369491542703",
+      "bucket_floor": 23
+    },
+    {
+      "flag_key": "日本語フラグ",
+      "distinct_id": "anon_0190a1b2-c3d4-7e5f-8a6b-7c8d9e0f1a2b",
+      "hash_input": "日本語フラグ:anon_0190a1b2-c3d4-7e5f-8a6b-7c8d9e0f1a2b",
+      "uint64": "7642405685603983698",
+      "bucket": "41.42956423673705",
+      "bucket_floor": 41
+    },
+    {
+      "flag_key": "日本語フラグ",
+      "distinct_id": "user@example.com",
+      "hash_input": "日本語フラグ:user@example.com",
+      "uint64": "9652410779842357805",
+      "bucket": "52.32582368613793",
+      "bucket_floor": 52
+    },
+    {
+      "flag_key": "日本語フラグ",
+      "distinct_id": "12345",
+      "hash_input": "日本語フラグ:12345",
+      "uint64": "3141556360952879039",
+      "bucket": "17.030411157653834",
+      "bucket_floor": 17
+    },
+    {
+      "flag_key": "日本語フラグ",
+      "distinct_id": "",
+      "hash_input": "日本語フラグ:",
+      "uint64": "283061963425022413",
+      "bucket": "1.5344819784671084",
+      "bucket_floor": 1
+    },
+    {
+      "flag_key": "日本語フラグ",
+      "distinct_id": "id:with:colons",
+      "hash_input": "日本語フラグ:id:with:colons",
+      "uint64": "4032592852791565643",
+      "bucket": "21.86072965873067",
+      "bucket_floor": 21
+    },
+    {
+      "flag_key": "日本語フラグ",
+      "distinct_id": "ü",
+      "hash_input": "日本語フラグ:ü",
+      "uint64": "2094538482135235572",
+      "bucket": "11.354515863427567",
+      "bucket_floor": 11
+    },
+    {
+      "flag_key": "日本語フラグ",
+      "distinct_id": "中文用户",
+      "hash_input": "日本語フラグ:中文用户",
+      "uint64": "5225576606475896306",
+      "bucket": "28.327907546152982",
+      "bucket_floor": 28
+    },
+    {
+      "flag_key": "日本語フラグ",
+      "distinct_id": "🦄",
+      "hash_input": "日本語フラグ:🦄",
+      "uint64": "7081842203969631861",
+      "bucket": "38.39074351371704",
+      "bucket_floor": 38
+    },
+    {
+      "flag_key": "日本語フラグ",
+      "distinct_id": "0190a1b2-c3d4-7e5f-8a6b-7c8d9e0f1a2b",
+      "hash_input": "日本語フラグ:0190a1b2-c3d4-7e5f-8a6b-7c8d9e0f1a2b",
+      "uint64": "10472572108137612546",
+      "bucket": "56.7719271557695",
+      "bucket_floor": 56
+    },
+    {
+      "flag_key": "日本語フラグ",
+      "distinct_id": "0",
+      "hash_input": "日本語フラグ:0",
+      "uint64": "1561204753406704061",
+      "bucket": "8.463307926691224",
+      "bucket_floor": 8
+    },
+    {
+      "flag_key": "日本語フラグ",
+      "distinct_id": "true",
+      "hash_input": "日本語フラグ:true",
+      "uint64": "11226574349195859238",
+      "bucket": "60.859381494840946",
+      "bucket_floor": 60
+    },
+    {
+      "flag_key": "日本語フラグ",
+      "distinct_id": " leading-space",
+      "hash_input": "日本語フラグ: leading-space",
+      "uint64": "7388690799860339555",
+      "bucket": "40.054173085161196",
+      "bucket_floor": 40
+    },
+    {
+      "flag_key": "日本語フラグ",
+      "distinct_id": "trailing-space ",
+      "hash_input": "日本語フラグ:trailing-space ",
+      "uint64": "18237331801318434204",
+      "bucket": "98.86477379664213",
+      "bucket_floor": 98
+    },
+    {
+      "flag_key": "日本語フラグ",
+      "distinct_id": "id with spaces",
+      "hash_input": "日本語フラグ:id with spaces",
+      "uint64": "14655425317665167705",
+      "bucket": "79.44721984055819",
+      "bucket_floor": 79
+    },
+    {
+      "flag_key": "日本語フラグ",
+      "distinct_id": "CamelCaseId",
+      "hash_input": "日本語フラグ:CamelCaseId",
+      "uint64": "10172750465419728146",
+      "bucket": "55.14659077380498",
+      "bucket_floor": 55
+    },
+    {
+      "flag_key": "日本語フラグ",
+      "distinct_id": "ID-123",
+      "hash_input": "日本語フラグ:ID-123",
+      "uint64": "3770410902603684002",
+      "bucket": "20.439438458829727",
+      "bucket_floor": 20
+    },
+    {
+      "flag_key": "日本語フラグ",
+      "distinct_id": "a:b",
+      "hash_input": "日本語フラグ:a:b",
+      "uint64": "3356255761984063723",
+      "bucket": "18.194298942800568",
+      "bucket_floor": 18
+    },
+    {
+      "flag_key": "日本語フラグ",
+      "distinct_id": "line\nbreak",
+      "hash_input": "日本語フラグ:line\nbreak",
+      "uint64": "13402771190961127999",
+      "bucket": "72.65656821283093",
+      "bucket_floor": 72
+    },
+    {
+      "flag_key": "日本語フラグ",
+      "distinct_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "hash_input": "日本語フラグ:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "uint64": "2231542486653659871",
+      "bucket": "12.097216060118015",
+      "bucket_floor": 12
+    },
+    {
+      "flag_key": "a",
+      "distinct_id": "user_42",
+      "hash_input": "a:user_42",
+      "uint64": "4699351461476059875",
+      "bucket": "25.475235319026375",
+      "bucket_floor": 25
+    },
+    {
+      "flag_key": "a",
+      "distinct_id": "anon_0190a1b2-c3d4-7e5f-8a6b-7c8d9e0f1a2b",
+      "hash_input": "a:anon_0190a1b2-c3d4-7e5f-8a6b-7c8d9e0f1a2b",
+      "uint64": "7785511944445944941",
+      "bucket": "42.20534482040069",
+      "bucket_floor": 42
+    },
+    {
+      "flag_key": "a",
+      "distinct_id": "user@example.com",
+      "hash_input": "a:user@example.com",
+      "uint64": "48841660252604903",
+      "bucket": "0.26477117076836576",
+      "bucket_floor": 0
+    },
+    {
+      "flag_key": "a",
+      "distinct_id": "12345",
+      "hash_input": "a:12345",
+      "uint64": "2038824721962120069",
+      "bucket": "11.052490964342427",
+      "bucket_floor": 11
+    },
+    {
+      "flag_key": "a",
+      "distinct_id": "",
+      "hash_input": "a:",
+      "uint64": "13818770803360272626",
+      "bucket": "74.91170663041234",
+      "bucket_floor": 74
+    },
+    {
+      "flag_key": "a",
+      "distinct_id": "id:with:colons",
+      "hash_input": "a:id:with:colons",
+      "uint64": "1688922917344832293",
+      "bucket": "9.155669480729117",
+      "bucket_floor": 9
+    },
+    {
+      "flag_key": "a",
+      "distinct_id": "ü",
+      "hash_input": "a:ü",
+      "uint64": "14069473871726299431",
+      "bucket": "76.27077068726848",
+      "bucket_floor": 76
+    },
+    {
+      "flag_key": "a",
+      "distinct_id": "中文用户",
+      "hash_input": "a:中文用户",
+      "uint64": "14694652065811852840",
+      "bucket": "79.65986846835908",
+      "bucket_floor": 79
+    },
+    {
+      "flag_key": "a",
+      "distinct_id": "🦄",
+      "hash_input": "a:🦄",
+      "uint64": "5644995232744777837",
+      "bucket": "30.60158047506102",
+      "bucket_floor": 30
+    },
+    {
+      "flag_key": "a",
+      "distinct_id": "0190a1b2-c3d4-7e5f-8a6b-7c8d9e0f1a2b",
+      "hash_input": "a:0190a1b2-c3d4-7e5f-8a6b-7c8d9e0f1a2b",
+      "uint64": "2479472863392375008",
+      "bucket": "13.441249325544335",
+      "bucket_floor": 13
+    },
+    {
+      "flag_key": "a",
+      "distinct_id": "0",
+      "hash_input": "a:0",
+      "uint64": "1068247235075034589",
+      "bucket": "5.79097986509993",
+      "bucket_floor": 5
+    },
+    {
+      "flag_key": "a",
+      "distinct_id": "true",
+      "hash_input": "a:true",
+      "uint64": "3026372278821919894",
+      "bucket": "16.40599699724316",
+      "bucket_floor": 16
+    },
+    {
+      "flag_key": "a",
+      "distinct_id": " leading-space",
+      "hash_input": "a: leading-space",
+      "uint64": "12646649926205905867",
+      "bucket": "68.55762662328043",
+      "bucket_floor": 68
+    },
+    {
+      "flag_key": "a",
+      "distinct_id": "trailing-space ",
+      "hash_input": "a:trailing-space ",
+      "uint64": "1448168407519970624",
+      "bucket": "7.850536667790127",
+      "bucket_floor": 7
+    },
+    {
+      "flag_key": "a",
+      "distinct_id": "id with spaces",
+      "hash_input": "a:id with spaces",
+      "uint64": "1950064624460564578",
+      "bucket": "10.571321511636366",
+      "bucket_floor": 10
+    },
+    {
+      "flag_key": "a",
+      "distinct_id": "CamelCaseId",
+      "hash_input": "a:CamelCaseId",
+      "uint64": "17895716322748960247",
+      "bucket": "97.01287257654363",
+      "bucket_floor": 97
+    },
+    {
+      "flag_key": "a",
+      "distinct_id": "ID-123",
+      "hash_input": "a:ID-123",
+      "uint64": "14222063104622496696",
+      "bucket": "77.09795857628824",
+      "bucket_floor": 77
+    },
+    {
+      "flag_key": "a",
+      "distinct_id": "a:b",
+      "hash_input": "a:a:b",
+      "uint64": "2324340109530543510",
+      "bucket": "12.600272981741053",
+      "bucket_floor": 12
+    },
+    {
+      "flag_key": "a",
+      "distinct_id": "line\nbreak",
+      "hash_input": "a:line\nbreak",
+      "uint64": "14310408356636427519",
+      "bucket": "77.57687914709966",
+      "bucket_floor": 77
+    },
+    {
+      "flag_key": "a",
+      "distinct_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "hash_input": "a:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "uint64": "3465925317976614394",
+      "bucket": "18.78881879711379",
+      "bucket_floor": 18
+    },
+    {
+      "flag_key": "very-long-flag-key-that-someone-will-eventually-create-in-production-2026",
+      "distinct_id": "user_42",
+      "hash_input": "very-long-flag-key-that-someone-will-eventually-create-in-production-2026:user_42",
+      "uint64": "151309101969052606",
+      "bucket": "0.8202482853583878",
+      "bucket_floor": 0
+    },
+    {
+      "flag_key": "very-long-flag-key-that-someone-will-eventually-create-in-production-2026",
+      "distinct_id": "anon_0190a1b2-c3d4-7e5f-8a6b-7c8d9e0f1a2b",
+      "hash_input": "very-long-flag-key-that-someone-will-eventually-create-in-production-2026:anon_0190a1b2-c3d4-7e5f-8a6b-7c8d9e0f1a2b",
+      "uint64": "10276203928976979684",
+      "bucket": "55.70741312350459",
+      "bucket_floor": 55
+    },
+    {
+      "flag_key": "very-long-flag-key-that-someone-will-eventually-create-in-production-2026",
+      "distinct_id": "user@example.com",
+      "hash_input": "very-long-flag-key-that-someone-will-eventually-create-in-production-2026:user@example.com",
+      "uint64": "5342783631034938354",
+      "bucket": "28.96328809944036",
+      "bucket_floor": 28
+    },
+    {
+      "flag_key": "very-long-flag-key-that-someone-will-eventually-create-in-production-2026",
+      "distinct_id": "12345",
+      "hash_input": "very-long-flag-key-that-someone-will-eventually-create-in-production-2026:12345",
+      "uint64": "1590713962094420135",
+      "bucket": "8.623277667528974",
+      "bucket_floor": 8
+    },
+    {
+      "flag_key": "very-long-flag-key-that-someone-will-eventually-create-in-production-2026",
+      "distinct_id": "",
+      "hash_input": "very-long-flag-key-that-someone-will-eventually-create-in-production-2026:",
+      "uint64": "213334724213981142",
+      "bucket": "1.1564898572969715",
+      "bucket_floor": 1
+    },
+    {
+      "flag_key": "very-long-flag-key-that-someone-will-eventually-create-in-production-2026",
+      "distinct_id": "id:with:colons",
+      "hash_input": "very-long-flag-key-that-someone-will-eventually-create-in-production-2026:id:with:colons",
+      "uint64": "6409629230425003192",
+      "bucket": "34.7466696822669",
+      "bucket_floor": 34
+    },
+    {
+      "flag_key": "very-long-flag-key-that-someone-will-eventually-create-in-production-2026",
+      "distinct_id": "ü",
+      "hash_input": "very-long-flag-key-that-someone-will-eventually-create-in-production-2026:ü",
+      "uint64": "11107945516687786484",
+      "bucket": "60.21629330521758",
+      "bucket_floor": 60
+    },
+    {
+      "flag_key": "very-long-flag-key-that-someone-will-eventually-create-in-production-2026",
+      "distinct_id": "中文用户",
+      "hash_input": "very-long-flag-key-that-someone-will-eventually-create-in-production-2026:中文用户",
+      "uint64": "15835581685436003259",
+      "bucket": "85.8448603296069",
+      "bucket_floor": 85
+    },
+    {
+      "flag_key": "very-long-flag-key-that-someone-will-eventually-create-in-production-2026",
+      "distinct_id": "🦄",
+      "hash_input": "very-long-flag-key-that-someone-will-eventually-create-in-production-2026:🦄",
+      "uint64": "7609364250500572668",
+      "bucket": "41.25044625813126",
+      "bucket_floor": 41
+    },
+    {
+      "flag_key": "very-long-flag-key-that-someone-will-eventually-create-in-production-2026",
+      "distinct_id": "0190a1b2-c3d4-7e5f-8a6b-7c8d9e0f1a2b",
+      "hash_input": "very-long-flag-key-that-someone-will-eventually-create-in-production-2026:0190a1b2-c3d4-7e5f-8a6b-7c8d9e0f1a2b",
+      "uint64": "12758249264014238884",
+      "bucket": "69.16260784577914",
+      "bucket_floor": 69
+    },
+    {
+      "flag_key": "very-long-flag-key-that-someone-will-eventually-create-in-production-2026",
+      "distinct_id": "0",
+      "hash_input": "very-long-flag-key-that-someone-will-eventually-create-in-production-2026:0",
+      "uint64": "7305722814497742857",
+      "bucket": "39.604402735276835",
+      "bucket_floor": 39
+    },
+    {
+      "flag_key": "very-long-flag-key-that-someone-will-eventually-create-in-production-2026",
+      "distinct_id": "true",
+      "hash_input": "very-long-flag-key-that-someone-will-eventually-create-in-production-2026:true",
+      "uint64": "1781859095475419216",
+      "bucket": "9.659477511887527",
+      "bucket_floor": 9
+    },
+    {
+      "flag_key": "very-long-flag-key-that-someone-will-eventually-create-in-production-2026",
+      "distinct_id": " leading-space",
+      "hash_input": "very-long-flag-key-that-someone-will-eventually-create-in-production-2026: leading-space",
+      "uint64": "1606262507925877433",
+      "bucket": "8.707566503376256",
+      "bucket_floor": 8
+    },
+    {
+      "flag_key": "very-long-flag-key-that-someone-will-eventually-create-in-production-2026",
+      "distinct_id": "trailing-space ",
+      "hash_input": "very-long-flag-key-that-someone-will-eventually-create-in-production-2026:trailing-space ",
+      "uint64": "13934047025352412268",
+      "bucket": "75.53662028201134",
+      "bucket_floor": 75
+    },
+    {
+      "flag_key": "very-long-flag-key-that-someone-will-eventually-create-in-production-2026",
+      "distinct_id": "id with spaces",
+      "hash_input": "very-long-flag-key-that-someone-will-eventually-create-in-production-2026:id with spaces",
+      "uint64": "7650893117288832833",
+      "bucket": "41.47557469609473",
+      "bucket_floor": 41
+    },
+    {
+      "flag_key": "very-long-flag-key-that-someone-will-eventually-create-in-production-2026",
+      "distinct_id": "CamelCaseId",
+      "hash_input": "very-long-flag-key-that-someone-will-eventually-create-in-production-2026:CamelCaseId",
+      "uint64": "15254956617751129903",
+      "bucket": "82.69728553068948",
+      "bucket_floor": 82
+    },
+    {
+      "flag_key": "very-long-flag-key-that-someone-will-eventually-create-in-production-2026",
+      "distinct_id": "ID-123",
+      "hash_input": "very-long-flag-key-that-someone-will-eventually-create-in-production-2026:ID-123",
+      "uint64": "10997422480898455952",
+      "bucket": "59.617146727655154",
+      "bucket_floor": 59
+    },
+    {
+      "flag_key": "very-long-flag-key-that-someone-will-eventually-create-in-production-2026",
+      "distinct_id": "a:b",
+      "hash_input": "very-long-flag-key-that-someone-will-eventually-create-in-production-2026:a:b",
+      "uint64": "4123799378240348990",
+      "bucket": "22.355161223912795",
+      "bucket_floor": 22
+    },
+    {
+      "flag_key": "very-long-flag-key-that-someone-will-eventually-create-in-production-2026",
+      "distinct_id": "line\nbreak",
+      "hash_input": "very-long-flag-key-that-someone-will-eventually-create-in-production-2026:line\nbreak",
+      "uint64": "7244400210970399995",
+      "bucket": "39.27197223544277",
+      "bucket_floor": 39
+    },
+    {
+      "flag_key": "very-long-flag-key-that-someone-will-eventually-create-in-production-2026",
+      "distinct_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "hash_input": "very-long-flag-key-that-someone-will-eventually-create-in-production-2026:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "uint64": "7532236092584378315",
+      "bucket": "40.83233367626855",
+      "bucket_floor": 40
+    }
+  ],
+  "variants": [
+    {
+      "flag_key": "variant_flag_1",
+      "distinct_id": "user_42",
+      "variants": [
+        {
+          "key": "control",
+          "rollout_percentage": 50
+        },
+        {
+          "key": "test",
+          "rollout_percentage": 50
+        }
+      ],
+      "expected": "test"
+    },
+    {
+      "flag_key": "variant_flag_1",
+      "distinct_id": "user_7",
+      "variants": [
+        {
+          "key": "control",
+          "rollout_percentage": 50
+        },
+        {
+          "key": "test",
+          "rollout_percentage": 50
+        }
+      ],
+      "expected": "control"
+    },
+    {
+      "flag_key": "variant_flag_1",
+      "distinct_id": "anon_0190a1b2-c3d4-7e5f-8a6b-7c8d9e0f1a2b",
+      "variants": [
+        {
+          "key": "control",
+          "rollout_percentage": 50
+        },
+        {
+          "key": "test",
+          "rollout_percentage": 50
+        }
+      ],
+      "expected": "control"
+    },
+    {
+      "flag_key": "variant_flag_1",
+      "distinct_id": "中文用户",
+      "variants": [
+        {
+          "key": "control",
+          "rollout_percentage": 50
+        },
+        {
+          "key": "test",
+          "rollout_percentage": 50
+        }
+      ],
+      "expected": "control"
+    },
+    {
+      "flag_key": "variant_flag_1",
+      "distinct_id": "🦄",
+      "variants": [
+        {
+          "key": "control",
+          "rollout_percentage": 50
+        },
+        {
+          "key": "test",
+          "rollout_percentage": 50
+        }
+      ],
+      "expected": "test"
+    },
+    {
+      "flag_key": "variant_flag_1",
+      "distinct_id": "user@example.com",
+      "variants": [
+        {
+          "key": "control",
+          "rollout_percentage": 50
+        },
+        {
+          "key": "test",
+          "rollout_percentage": 50
+        }
+      ],
+      "expected": "control"
+    },
+    {
+      "flag_key": "variant_flag_2",
+      "distinct_id": "user_42",
+      "variants": [
+        {
+          "key": "a",
+          "rollout_percentage": 33
+        },
+        {
+          "key": "b",
+          "rollout_percentage": 33
+        },
+        {
+          "key": "c",
+          "rollout_percentage": 34
+        }
+      ],
+      "expected": "b"
+    },
+    {
+      "flag_key": "variant_flag_2",
+      "distinct_id": "user_7",
+      "variants": [
+        {
+          "key": "a",
+          "rollout_percentage": 33
+        },
+        {
+          "key": "b",
+          "rollout_percentage": 33
+        },
+        {
+          "key": "c",
+          "rollout_percentage": 34
+        }
+      ],
+      "expected": "a"
+    },
+    {
+      "flag_key": "variant_flag_2",
+      "distinct_id": "anon_0190a1b2-c3d4-7e5f-8a6b-7c8d9e0f1a2b",
+      "variants": [
+        {
+          "key": "a",
+          "rollout_percentage": 33
+        },
+        {
+          "key": "b",
+          "rollout_percentage": 33
+        },
+        {
+          "key": "c",
+          "rollout_percentage": 34
+        }
+      ],
+      "expected": "c"
+    },
+    {
+      "flag_key": "variant_flag_2",
+      "distinct_id": "中文用户",
+      "variants": [
+        {
+          "key": "a",
+          "rollout_percentage": 33
+        },
+        {
+          "key": "b",
+          "rollout_percentage": 33
+        },
+        {
+          "key": "c",
+          "rollout_percentage": 34
+        }
+      ],
+      "expected": "b"
+    },
+    {
+      "flag_key": "variant_flag_2",
+      "distinct_id": "🦄",
+      "variants": [
+        {
+          "key": "a",
+          "rollout_percentage": 33
+        },
+        {
+          "key": "b",
+          "rollout_percentage": 33
+        },
+        {
+          "key": "c",
+          "rollout_percentage": 34
+        }
+      ],
+      "expected": "b"
+    },
+    {
+      "flag_key": "variant_flag_2",
+      "distinct_id": "user@example.com",
+      "variants": [
+        {
+          "key": "a",
+          "rollout_percentage": 33
+        },
+        {
+          "key": "b",
+          "rollout_percentage": 33
+        },
+        {
+          "key": "c",
+          "rollout_percentage": 34
+        }
+      ],
+      "expected": "a"
+    },
+    {
+      "flag_key": "variant_flag_3",
+      "distinct_id": "user_42",
+      "variants": [
+        {
+          "key": "old",
+          "rollout_percentage": 90
+        },
+        {
+          "key": "new",
+          "rollout_percentage": 10
+        }
+      ],
+      "expected": "old"
+    },
+    {
+      "flag_key": "variant_flag_3",
+      "distinct_id": "user_7",
+      "variants": [
+        {
+          "key": "old",
+          "rollout_percentage": 90
+        },
+        {
+          "key": "new",
+          "rollout_percentage": 10
+        }
+      ],
+      "expected": "old"
+    },
+    {
+      "flag_key": "variant_flag_3",
+      "distinct_id": "anon_0190a1b2-c3d4-7e5f-8a6b-7c8d9e0f1a2b",
+      "variants": [
+        {
+          "key": "old",
+          "rollout_percentage": 90
+        },
+        {
+          "key": "new",
+          "rollout_percentage": 10
+        }
+      ],
+      "expected": "old"
+    },
+    {
+      "flag_key": "variant_flag_3",
+      "distinct_id": "中文用户",
+      "variants": [
+        {
+          "key": "old",
+          "rollout_percentage": 90
+        },
+        {
+          "key": "new",
+          "rollout_percentage": 10
+        }
+      ],
+      "expected": "new"
+    },
+    {
+      "flag_key": "variant_flag_3",
+      "distinct_id": "🦄",
+      "variants": [
+        {
+          "key": "old",
+          "rollout_percentage": 90
+        },
+        {
+          "key": "new",
+          "rollout_percentage": 10
+        }
+      ],
+      "expected": "old"
+    },
+    {
+      "flag_key": "variant_flag_3",
+      "distinct_id": "user@example.com",
+      "variants": [
+        {
+          "key": "old",
+          "rollout_percentage": 90
+        },
+        {
+          "key": "new",
+          "rollout_percentage": 10
+        }
+      ],
+      "expected": "old"
+    }
+  ],
+  "version": 1
+}

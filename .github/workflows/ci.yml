@@ -1,0 +1,65 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  mockserver:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.24"
+          cache-dependency-path: mockserver/go.mod
+      - run: go vet ./...
+        working-directory: mockserver
+      - run: go test ./...
+        working-directory: mockserver
+      - run: docker build -t kilden-mockserver mockserver/
+
+  vectors:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: vectors are valid JSON with the expected shape
+        run: |
+          python3 - <<'EOF'
+          import json
+          payload = json.load(open('vectors/payload.json'))
+          assert payload['version'] == 1 and len(payload['vectors']) >= 15
+          hashing = json.load(open('vectors/flag-hashing.json'))
+          assert len(hashing['rollout']) >= 200 and len(hashing['variants']) >= 12
+          identity = json.load(open('vectors/identity.json'))
+          assert len(identity['vectors']) >= 10
+          for v in identity['vectors']:
+              assert v['token'].count('.') == 2, v['name']
+          print('vectors ok')
+          EOF
+      - name: identity vectors re-verify (independent HS256)
+        run: |
+          python3 - <<'EOF'
+          import json, hmac, hashlib, base64
+          def b64url(b): return base64.urlsafe_b64encode(b).rstrip(b'=').decode()
+          doc = json.load(open('vectors/identity.json'))
+          for v in doc['vectors']:
+              h, p, s = v['token'].split('.')
+              sig = hmac.new(v['secret'].encode(), f"{h}.{p}".encode(), hashlib.sha256).digest()
+              assert b64url(sig) == s, f"signature mismatch: {v['name']}"
+              payload = json.loads(base64.urlsafe_b64decode(p + '=='))
+              assert payload['sub'] == v['sub'] and payload['iat'] == v['iat'] and payload['exp'] == v['exp']
+          print(f"{len(doc['vectors'])} identity vectors re-verified")
+          EOF
+      - name: hashing vectors re-verify (independent SHA-256)
+        run: |
+          python3 - <<'EOF'
+          import json, hashlib, struct
+          doc = json.load(open('vectors/flag-hashing.json'))
+          for v in doc['rollout']:
+              d = hashlib.sha256((v['flag_key'] + ':' + v['distinct_id']).encode()).digest()
+              u = struct.unpack('>Q', d[:8])[0]
+              assert str(u) == v['uint64'] and int(u / 2**64 * 100) == v['bucket_floor'], v
+          print(f"{len(doc['rollout'])} hashing vectors re-verified")
+          EOF

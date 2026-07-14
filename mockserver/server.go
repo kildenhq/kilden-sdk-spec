@@ -65,6 +65,7 @@ func NewServer() *Server {
 
 	mux := http.NewServeMux()
 	mux.HandleFunc("/capture", s.handleCapture)
+	mux.HandleFunc("/decide", s.handleDecide)
 	mux.HandleFunc("/healthz", func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusOK)
 		w.Write([]byte("ok"))

@@ -1,0 +1,226 @@
+{
+  "version": 1,
+  "runner": "Build a client against the mock server with flush_at large enough that nothing flushes early. For each vector: reset the mock, replay `call`, flush(), GET /__mock/captured and compare the single captured event against `expect_event` (deep equality after JSON parsing; placeholder semantics in SPEC.md §9). Vectors with `expect: \"discarded\"` assert nothing was captured.",
+  "vectors": [
+    {
+      "name": "track_minimal",
+      "call": { "method": "track", "args": { "distinct_id": "user_42", "event": "signup" } },
+      "expect_event": {
+        "event": "signup",
+        "distinct_id": "user_42",
+        "properties": {},
+        "uuid": "<uuid_v7>",
+        "timestamp": "<iso8601_utc_ms>"
+      }
+    },
+    {
+      "name": "track_with_properties",
+      "call": { "method": "track", "args": {
+        "distinct_id": "user_42",
+        "event": "order_completed",
+        "properties": { "revenue": 99.9, "currency": "CLP" }
+      }},
+      "expect_event": {
+        "event": "order_completed",
+        "distinct_id": "user_42",
+        "properties": { "revenue": 99.9, "currency": "CLP" },
+        "uuid": "<uuid_v7>",
+        "timestamp": "<iso8601_utc_ms>"
+      }
+    },
+    {
+      "name": "track_nested_properties",
+      "call": { "method": "track", "args": {
+        "distinct_id": "user_42",
+        "event": "cart_updated",
+        "properties": {
+          "items": [
+            { "sku": "A-1", "qty": 2, "price": 10.5 },
+            { "sku": "B-2", "qty": 1, "price": 0 }
+          ],
+          "totals": { "gross": 21, "net": 17.65 },
+          "empty_list": [],
+          "empty_map": {}
+        }
+      }},
+      "expect_event": {
+        "event": "cart_updated",
+        "distinct_id": "user_42",
+        "properties": {
+          "items": [
+            { "sku": "A-1", "qty": 2, "price": 10.5 },
+            { "sku": "B-2", "qty": 1, "price": 0 }
+          ],
+          "totals": { "gross": 21, "net": 17.65 },
+          "empty_list": [],
+          "empty_map": {}
+        },
+        "uuid": "<uuid_v7>",
+        "timestamp": "<iso8601_utc_ms>"
+      }
+    },
+    {
+      "name": "track_scalar_types",
+      "call": { "method": "track", "args": {
+        "distinct_id": "user_42",
+        "event": "types",
+        "properties": { "int": 7, "float": 3.14, "bool_t": true, "bool_f": false, "null_value": null, "string": "s" }
+      }},
+      "expect_event": {
+        "event": "types",
+        "distinct_id": "user_42",
+        "properties": { "int": 7, "float": 3.14, "bool_t": true, "bool_f": false, "null_value": null, "string": "s" },
+        "uuid": "<uuid_v7>",
+        "timestamp": "<iso8601_utc_ms>"
+      }
+    },
+    {
+      "name": "track_unicode",
+      "call": { "method": "track", "args": {
+        "distinct_id": "usuario_ñandú",
+        "event": "búsqueda",
+        "properties": { "término": "מִלָּה", "city": "München", "emoji": "🦄", "cjk": "日本語" }
+      }},
+      "expect_event": {
+        "event": "búsqueda",
+        "distinct_id": "usuario_ñandú",
+        "properties": { "término": "מִלָּה", "city": "München", "emoji": "🦄", "cjk": "日本語" },
+        "uuid": "<uuid_v7>",
+        "timestamp": "<iso8601_utc_ms>"
+      }
+    },
+    {
+      "name": "track_dollar_prefixed_event_sent_anyway",
+      "call": { "method": "track", "args": {
+        "distinct_id": "user_42",
+        "event": "$custom_system_looking_event",
+        "properties": { "$custom_prop": 1 }
+      }},
+      "expect_event": {
+        "event": "$custom_system_looking_event",
+        "distinct_id": "user_42",
+        "properties": { "$custom_prop": 1 },
+        "uuid": "<uuid_v7>",
+        "timestamp": "<iso8601_utc_ms>"
+      }
+    },
+    {
+      "name": "track_explicit_timestamp",
+      "call": { "method": "track", "args": {
+        "distinct_id": "user_42",
+        "event": "backfilled",
+        "properties": {},
+        "opts": { "timestamp": "2026-01-02T03:04:05.678Z" }
+      }},
+      "expect_event": {
+        "event": "backfilled",
+        "distinct_id": "user_42",
+        "properties": {},
+        "uuid": "<uuid_v7>",
+        "timestamp": "2026-01-02T03:04:05.678Z"
+      }
+    },
+    {
+      "name": "track_explicit_uuid",
+      "call": { "method": "track", "args": {
+        "distinct_id": "user_42",
+        "event": "retried",
+        "properties": {},
+        "opts": { "uuid": "0197fa10-7a2b-7c3d-8e4f-5a6b7c8d9e0f" }
+      }},
+      "expect_event": {
+        "event": "retried",
+        "distinct_id": "user_42",
+        "properties": {},
+        "uuid": "0197fa10-7a2b-7c3d-8e4f-5a6b7c8d9e0f",
+        "timestamp": "<iso8601_utc_ms>"
+      }
+    },
+    {
+      "name": "track_empty_distinct_id_discarded",
+      "call": { "method": "track", "args": { "distinct_id": "", "event": "ghost" } },
+      "expect": "discarded"
+    },
+    {
+      "name": "track_empty_event_discarded",
+      "call": { "method": "track", "args": { "distinct_id": "user_42", "event": "" } },
+      "expect": "discarded"
+    },
+    {
+      "name": "track_oversize_event_name_discarded",
+      "call": { "method": "track", "args": {
+        "distinct_id": "user_42",
+        "event": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+      }},
+      "expect": "discarded"
+    },
+    {
+      "name": "identify_with_traits",
+      "call": { "method": "identify", "args": {
+        "distinct_id": "user_42",
+        "traits": { "plan": "pro", "email": "user@example.com" }
+      }},
+      "expect_event": {
+        "event": "$identify",
+        "distinct_id": "user_42",
+        "properties": { "$set": { "plan": "pro", "email": "user@example.com" } },
+        "uuid": "<uuid_v7>",
+        "timestamp": "<iso8601_utc_ms>"
+      }
+    },
+    {
+      "name": "identify_empty_traits",
+      "call": { "method": "identify", "args": { "distinct_id": "user_42" } },
+      "expect_event": {
+        "event": "$identify",
+        "distinct_id": "user_42",
+        "properties": { "$set": {} },
+        "uuid": "<uuid_v7>",
+        "timestamp": "<iso8601_utc_ms>"
+      }
+    },
+    {
+      "name": "identify_reserved_traits_pass_through",
+      "call": { "method": "identify", "args": {
+        "distinct_id": "user_42",
+        "traits": { "$created_at": "2025-01-01", "plan": "pro" }
+      }},
+      "expect_event": {
+        "event": "$identify",
+        "distinct_id": "user_42",
+        "properties": { "$set": { "$created_at": "2025-01-01", "plan": "pro" } },
+        "uuid": "<uuid_v7>",
+        "timestamp": "<iso8601_utc_ms>"
+      }
+    },
+    {
+      "name": "identify_empty_distinct_id_discarded",
+      "call": { "method": "identify", "args": { "distinct_id": "", "traits": { "plan": "pro" } } },
+      "expect": "discarded"
+    },
+    {
+      "name": "alias_basic",
+      "call": { "method": "alias", "args": {
+        "previous_id": "anon_0190a1b2-c3d4-7e5f-8a6b-7c8d9e0f1a2b",
+        "distinct_id": "user_42"
+      }},
+      "expect_event": {
+        "event": "$alias",
+        "distinct_id": "anon_0190a1b2-c3d4-7e5f-8a6b-7c8d9e0f1a2b",
+        "properties": { "$alias": "user_42" },
+        "uuid": "<uuid_v7>",
+        "timestamp": "<iso8601_utc_ms>"
+      }
+    },
+    {
+      "name": "alias_empty_previous_id_discarded",
+      "call": { "method": "alias", "args": { "previous_id": "", "distinct_id": "user_42" } },
+      "expect": "discarded"
+    },
+    {
+      "name": "alias_empty_distinct_id_discarded",
+      "call": { "method": "alias", "args": { "previous_id": "user_42", "distinct_id": "" } },
+      "expect": "discarded"
+    }
+  ]
+}

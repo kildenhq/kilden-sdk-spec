@@ -29,7 +29,11 @@ Every event the mobile SDK emits carries `properties.$session_id`:
   are never dropped or left unstamped because storage failed.
 - An explicit `$session_id` passed by the caller in event properties wins
   over the stamp (consistent with the context-merge rule: explicit
-  properties always win).
+  properties always win). The override is accepted **verbatim and
+  unvalidated** — properties are opaque end to end (SPEC.md §4.5) and the
+  SDK never rejects or rewrites them. A non-UUID override simply forms its
+  own session key downstream; keeping overrides well-formed is the
+  caller's responsibility.
 
 These are the same semantics as the web SDK (`kilden-sdk-js/src/session.ts`)
 so a "session" means one thing across the product: the `web_sessions`
@@ -79,19 +83,32 @@ uncaught error:
 | `$exception_fatal` | the runtime's `isFatal` flag as a boolean |
 | `$exception_stack` | scrubbed stack, capped at 4000 chars (omitted when absent) |
 
-The previously installed handler **always still runs** (dev red screen,
-crash reporters), and a fatal error triggers an immediate flush.
+Ordering per uncaught error: the SDK **first** enqueues the `$exception`
+event and, when fatal, initiates a flush; **then** it delegates to the
+previously installed handler (dev red screen, crash reporters). Delegation
+always happens, even when reporting itself fails. Delivery of a fatal
+exception is best-effort: the flush is initiated before delegation, but a
+previous handler that terminates the process can still preempt the network
+round trip — `persistQueue: true` closes that gap (the event is on disk and
+delivers on the next launch).
 
 ### Scrubbing
 
 Exception messages routinely drag PII along (emails in auth errors, ids and
 card numbers interpolated into strings). Before entering the queue, message
-and stack are transformed:
+and stack are transformed, **in this order**:
 
 1. Email addresses → `[email]`.
-2. Digit runs of 6 or more → `[digits]` (card numbers, phones, ids; short
-   numbers like line/row references survive).
-3. Message capped at 1000 characters.
+2. Contiguous digit runs of 6 or more → `[digits]` (card numbers, numeric
+   ids, unformatted phone numbers; short numbers like line/row references
+   survive).
+3. Message capped at 1000 characters (applied last, after redaction).
+
+Known limitation, accepted for v1: digits split by separators are **not**
+normalized before matching — a formatted phone like `555-123-4567` has no
+6-digit contiguous run and survives scrubbing. Implementations must not
+silently "improve" on this individually; widening the contract is a spec
+change so every SDK keeps the identical privacy guarantee.
 
 This is a **deliberate, documented exception** to SPEC.md's contract 3
 ("never mutate customer data"): like timestamp formatting, it is an
@@ -104,9 +121,13 @@ messages would turn a crash into a data leak.
 The `/decide` response's `sessionRecording` block (`{enabled, sampleRate}`,
 already served — see SPEC.md §8.4) is parsed and exposed by the mobile SDK:
 
-- Absent or malformed blocks are tolerated and leave the previous value
-  (initially `null`) untouched — backward compatibility is unconditional.
-- `sampleRate` outside `[0, 1]` or non-numeric falls back to `1`.
+- An absent or **structurally invalid** block (missing, `null`, a
+  non-object, an array) leaves the previous value (initially `null`)
+  untouched — backward compatibility is unconditional.
+- A structurally valid block is always adopted, field by field: `enabled`
+  is `true` only for a literal `true`; a `sampleRate` outside `[0, 1]` or
+  non-numeric falls back to `1` (the block is still adopted — only the
+  field falls back).
 - The config is project-level: it survives `identify()`/`reset()`.
 
 **Nothing records in this phase.** The parsed config is deliberate wiring

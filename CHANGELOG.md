@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- `SPEC-mobile.md`: mobile client SDK spec (Expo / React Native) — the
+  mobile-session surface: `$session_id` (UUID v7, 30-minute inactivity
+  rotation), `$screen`/`$screen_name` (static route names, never resolved
+  params), `$app_opened`/`$app_backgrounded`, opt-in `$exception` with a
+  normative scrubbing contract, and `sessionRecording` parsing rules.
+  Everything travels inside `properties`; wire protocol, batching and the
+  mock server are unchanged.
+
 ## [0.1.0-alpha.2] - 2026-07-14
 
 ### Changed

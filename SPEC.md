@@ -36,6 +36,11 @@ Each SDK implements this surface idiomatically — `snake_case` in Ruby and
 Python, `camelCase` in PHP and TypeScript, functional `ClientOption`s in Go —
 but the **semantics** are this document's and may not vary.
 
+The **mobile client SDK** (`@kilden-io/expo`) is a different animal: a
+stateful client with sessions, screens and app lifecycle. Its
+mobile-session surface is specified in [SPEC-mobile.md](SPEC-mobile.md);
+this document still governs its wire protocol, batching and flag semantics.
+
 ## 2. Public surface
 
 Signatures below are pseudo-PHP; §12 maps them to each language's idiom.
